@@ -1,6 +1,9 @@
+"use client";
 import { Navigation } from "@/components/Navigation/Navigation";
 import "./globals.css";
 import { Footer } from "@/components/Footer/Footer";
+import { store } from "@/redux/store";
+import { Provider } from "react-redux";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

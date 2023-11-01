@@ -1,15 +1,29 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 import Logo from "../../public/logo.svg";
 import { usePathname } from "next/navigation";
+import {
+  auth,
+  logInWithGoogle,
+  logOutFromGoogle,
+  provider,
+} from "@/lib/firebase/firebase";
+import { getAuth } from "firebase/auth";
 
 export const Navigation = () => {
   const pathname = usePathname();
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    setToken(localStorage.getItem("token") || "");
+  }, []);
 
   return (
     <>
@@ -17,13 +31,13 @@ export const Navigation = () => {
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex justify-between items-center px-8 py-8">
           <div className="flex items-center gap-10">
-            <a href="/home">
+            <a href="/">
               <Image src={Logo} alt="" className="w-14" />
             </a>
             <ul className="hidden md:flex items-center gap-5 text-lg">
               <li className="relative">
-                <a href="/home">Home</a>
-                {pathname === "/home" && (
+                <a href="/">Home</a>
+                {pathname === "/" && (
                   <span className="absolute bottom-[-5px] left-0 h-[3px] w-full bg-black"></span>
                 )}
               </li>
@@ -53,11 +67,44 @@ export const Navigation = () => {
               </li>
             </ul>
           </div>
-          <a href="/#">
-            <button className="font-Inter hidden md:block border-4 border-gray-950 px-2 uppercase font-bold text-xl">
-              Join Club!
-            </button>
-          </a>
+          <div>
+            {!token && (
+              <a href="/#" onClick={() => logInWithGoogle(auth, provider)}>
+                <button className="font-Inter hidden md:block border-4 border-gray-950 px-2 uppercase font-bold text-xl">
+                  Join Club!
+                </button>
+              </a>
+            )}
+
+            {token && (
+              <div className="dropdown dropdown-end	">
+                <label tabIndex={0} className="btn m-1">
+                  Admin
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <a
+                      href="/#"
+                      className=" space-x-1"
+                      onClick={() => logOutFromGoogle(auth)}
+                    >
+                      <LogoutIcon />
+                      <span>Log Out</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/admin/dashboard" className=" space-x-1">
+                      <AdminPanelSettingsIcon />
+                      <span> Admin Panel</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
 
           <label htmlFor="my-drawer-4" className="drawer-button md:hidden">
             <MenuIcon fontSize="large" />

@@ -96,6 +96,8 @@ export default function AdminDashboard() {
         uploadBytes(imgRef, newItem.files).then((snapshot) => {});
       }
       setNewItem({ name: "", description: "", date: "", isMain: false, files: null });
+
+      setIsDialogOpen(false);
     }
   };
 
@@ -123,7 +125,12 @@ export default function AdminDashboard() {
   return (
     <main className="lg:max-w-[1200px] lg:m-auto tracking-wide">
       {isDialogOpened && (
-        <EventDialog item={newItem} onChange={setNewItemHandler} addEvent={addEvent} />
+        <EventDialog
+          item={newItem}
+          onChange={setNewItemHandler}
+          addEvent={addEvent}
+          onClose={() => setIsDialogOpen(false)}
+        />
       )}
       <div className="flex justify-between">
         <div>Events</div>

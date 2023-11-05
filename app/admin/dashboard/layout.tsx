@@ -18,7 +18,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     }
   }, []);
   return (
-    <div className="px-16 grid grid-cols-5">
+    <div className="px-32 grid grid-cols-5">
       <div>
         <ul className="menu w-56 rounded-box bg-gray-200">
           <li>

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -9,15 +9,11 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 import Logo from "../../public/logo.svg";
 import { usePathname } from "next/navigation";
-import { auth } from "@/lib/firebase/firebase";
-import { getAuth } from "firebase/auth";
 import { UserAuth } from "@/app/context/AuthContext";
 
 export const Navigation = () => {
   const pathname = usePathname();
   const { user, googleSignIn, logOut } = UserAuth();
-
-  console.log(user);
 
   const handleSignIn = async () => {
     try {
@@ -33,12 +29,6 @@ export const Navigation = () => {
       console.log(error);
     }
   };
-
-  // const [token, setToken] = useState("");
-
-  // useEffect(() => {
-  //   setToken(localStorage.getItem("token") || "");
-  // }, []);
 
   return (
     <>
@@ -93,7 +83,7 @@ export const Navigation = () => {
             )}
 
             {user && (
-              <div className="dropdown dropdown-end	">
+              <div className="dropdown dropdown-end	hidden md:block">
                 <label
                   tabIndex={0}
                   className="btn m-1 bg-transparent border-none capitalize rounded-full p-1 pl-4 bg-gray-300"
@@ -140,12 +130,46 @@ export const Navigation = () => {
             className="drawer-overlay"
           ></label>
 
-          <ul className="menu p-4 w-80 min-h-full bg-gray-100 text-lg">
-            <li>
-              <label htmlFor="my-drawer-4" className="drawer-button">
+          <ul className="menu p-4 w-96 min-h-full bg-gray-100 text-lg">
+            <div className="flex justify-between p-2 items-center">
+              <label htmlFor="my-drawer-4" className="drawer-button cursor-pointer">
                 <CloseIcon fontSize="large" />
               </label>
-            </li>
+              {user && (
+                <div className="dropdown dropdown-end">
+                  <label
+                    tabIndex={0}
+                    className="btn m-1 bg-transparent border-none capitalize rounded-full p-1 pl-4 bg-gray-300"
+                  >
+                    {user.displayName}
+                    <Image
+                      src={user.photoURL || ""}
+                      height={40}
+                      width={40}
+                      alt=""
+                      className="rounded-full"
+                    />
+                  </label>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                  >
+                    <li>
+                      <a href="/" className=" space-x-1" onClick={handleSignOut}>
+                        <LogoutIcon />
+                        <span>Log Out</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/admin/dashboard" className=" space-x-1">
+                        <AdminPanelSettingsIcon />
+                        <span> Admin Panel</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
             <li className="">
               <a href="/home">Home</a>
             </li>

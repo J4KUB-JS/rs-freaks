@@ -40,7 +40,7 @@ export default function Events() {
 
   return (
     <main className="drawer drawer-end lg:max-w-[1300px] lg:m-auto z-10">
-      <div className="grid md:grid-cols-2 gap-x-10 gap-y-10 lg:gap-x-32 px-10 lg:px-16 mt-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-10 lg:gap-x-32 px-10 lg:px-16 mt-10">
         <div className="col-span-2 lg:col-span-1">
           <div>
             <div className="text-6xl font-bold uppercase">Events</div>
@@ -56,7 +56,7 @@ export default function Events() {
           </div>
         </div>
 
-        <div className=" border-t-2 border-gray-900 pt-8 pb-10 row-start-2">
+        <div className=" border-t-2 border-gray-900 pt-8 pb-10 lg:row-start-2">
           <div className="mb-10 uppercase">
             <div className="text-lg">This month events</div>
             <div className="text-5xl font-Inter font-bold">{moment().format("MMMM")}</div>
@@ -95,12 +95,8 @@ export default function Events() {
             })}
           </ul>
         </div>
-        <div className="lg:row-span-2">
-          <Image
-            src={events}
-            alt=""
-            className="hidden md:block lg:max-h-full max-h-[500px]"
-          />
+        <div className="lg:row-span-2 justify-self-end">
+          <Image src={events} alt="" className="hidden lg:block  w-auto h-[700px]" />
           <div className="hidden lg:block font-Inter uppercase text-5xl font-bold text-gray-200 lg:text-6xl mt-5">
             More power
           </div>

@@ -11,7 +11,7 @@ export default function About() {
     <main className="lg:max-w-[1300px] lg:m-auto tracking-wide">
       <div className="grid grid-cols-2 gap-10 lg:gap-24 px-4 md:px-16 lg:mt-20 mt-10 mb-16 item">
         <div className="col-span-2 lg:col-span-1">
-          <Image src={about1} alt="" className="hidden lg:block" />
+          <Image src={about1} alt="" className="hidden lg:block w-auto h-[700px]" />
           <Image src={about3} alt="" className=" lg:hidden" />
         </div>
         <div className="col-span-2 lg:col-span-1 flex flex-col justify-between">
@@ -49,11 +49,6 @@ export default function About() {
       </div>
       <div className="md:grid grid-cols-3 hidden gap-4 px-4 md:px-16 lg:hidden">
         <Image src={about5} alt="" className=" col-span-2 h-[150px]" />
-        {/* <Image
-          src={gridImg2}
-          alt=""
-          className="col-start-1 col-end-4 md:col-end-3 row-start-2 row-end-3 h-full"
-        /> */}
         <Image src={about4} alt="" className="row-span-2 h-[150px]" />
       </div>
       <div className="grid grid-cols-2 lg:gap-16 mt-16 px-4 md:px-16 items-center">
@@ -80,7 +75,12 @@ export default function About() {
           </div>
         </div>
         <div className="col-span-2 lg:col-span-1 justify-self-end">
-          <Image src={about2} alt="" height={800} className="hidden lg:block" />
+          <Image
+            src={about2}
+            alt=""
+            height={800}
+            className="hidden lg:block  w-auto h-[700px]"
+          />
         </div>
       </div>
     </main>

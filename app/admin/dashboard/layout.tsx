@@ -12,12 +12,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const { user, googleSignIn, logOut } = UserAuth();
 
-  useEffect(() => {
-    if (!user) {
-      redirect("/");
-    }
-  }, []);
-
   return (
     <div className="px-32 grid grid-cols-5">
       {user && (

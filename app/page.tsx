@@ -59,11 +59,11 @@ export default function Home() {
             <span className="absolute bottom-[-5px] left-0 h-[3px] w-full bg-black"></span>
           </span>
         </div>
-        <div className="col-span-2 lg:col-span-1">
+        <div className="col-span-2 lg:col-span-1 justify-self-end">
           <div className="hidden lg:block font-Inter uppercase text-5xl font-bold text-gray-200 lg:text-4xl mb-5">
             Smoke the tires
           </div>
-          <Image src={homeAbout} alt="" className="w-full" />
+          <Image src={homeAbout} alt="" className="w-[500px] h-auto" />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-16 lg:gap-24 px-4 md:px-16 lg:mt-20 items-center">
@@ -72,7 +72,7 @@ export default function Home() {
             More power
           </div>
 
-          <Image src={homeCars} alt="" className="hidden lg:block" />
+          <Image src={homeCars} alt="" className="hidden lg:block  w-auto h-[500px]" />
         </div>
         <div className="col-span-2 lg:col-span-1">
           <div className="text-3xl uppercase font-extrabold font-Inter">what we have</div>
@@ -106,11 +106,11 @@ export default function Home() {
             <span className="absolute bottom-[-5px] left-0 h-[3px] w-full bg-black"></span>
           </span>
         </div>
-        <div className="col-span-2 row-start-1 lg:col-start-2 lg:col-span-1">
+        <div className="col-span-2 row-start-1 lg:col-start-2 lg:col-span-1 justify-self-end">
           <div className="hidden lg:block font-Inter uppercase text-5xl font-bold text-gray-200 lg:text-5xl mb-5">
             Let&apos;s goooo!
           </div>
-          <Image src={homeEvents} alt="" className="hidden lg:block" />
+          <Image src={homeEvents} alt="" className="hidden lg:block w-auto h-[500px]" />
           <Image src={homeEvents2} alt="" className="lg:hidden" />
         </div>
       </div>

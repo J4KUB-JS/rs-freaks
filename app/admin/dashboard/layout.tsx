@@ -20,7 +20,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <li
                 className={`${
                   pathname === "/admin/dashboard"
-                    ? "bg-gray-800 text-gray-50 rounded-lg"
+                    ? "bg-gray-800 text-gray-50 rounded-lg hover:bg-gray-300 hover:text-gray-800"
                     : ""
                 }`}
               >
@@ -32,7 +32,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <li
                 className={`${
                   pathname === "/admin/dashboard/cars"
-                    ? "bg-gray-800 text-gray-50 rounded-lg"
+                    ? "bg-gray-800 text-gray-50 rounded-lg hover:bg-gray-300 hover:text-gray-800"
                     : ""
                 }`}
               >
@@ -44,7 +44,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <li
                 className={`${
                   pathname === "/admin/dashboard/blog"
-                    ? "bg-gray-800 text-gray-50 rounded-lg"
+                    ? "bg-gray-800 text-gray-50 rounded-lg hover:bg-gray-300 hover:text-gray-800"
                     : ""
                 }`}
               >

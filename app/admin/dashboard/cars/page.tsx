@@ -67,7 +67,7 @@ export default function Cars() {
       )}
 
       <div className="flex justify-between items-center mb-10">
-        <div className="text-xl font-bold">Events</div>
+        <div className="text-xl font-bold">Cars In Clubs</div>
         <div>
           <button className="btn" onClick={() => setUploadDialogOpened(true)}>
             Upload Files

@@ -22,10 +22,10 @@ export default function Blog() {
           <Image alt="" src={blogMain} className="w-full overflow-hidden" />
 
           <div className="flex justify-between py-6 md:flex-row flex-col gap-4">
-            <h1 className="text-left xl:text-6xl font-bold md:w-80 md:text-5xl text-4xl w-96 font-Inter">
+            <h1 className="xl:text-6xl font-bold md:text-5xl text-4xl font-Inter md:w-[50%]">
               Power that scares
             </h1>
-            <div className="w-[400px] text-left text-darkGrayishBlue flex gap-6 flex-col items-start justify-between xl:text-lg pr-5">
+            <div className="flex gap-6 flex-col items-start justify-between xl:text-lg pr-5 md:w-[50%]">
               <p>
                 “I have driven few tuned sports cars but this one is something I have
                 never experienced”

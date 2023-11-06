@@ -17,11 +17,10 @@ export default function Blog() {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-x-7 md:grid-cols-2 sm:grid-cols-1">
-        <div className="md:col-span-2 sm:col-span-1 px-6">
-          <div className="w-full overflow-hidden">
-            <Image alt="" src={blogMain} />
-          </div>
+      <div className="md:grid lg:grid-cols-3 md:gap-x-7 md:grid-cols-2 ">
+        <div className="md:col-span-2 px-6">
+          <Image alt="" src={blogMain} className="w-full overflow-hidden" />
+
           <div className="flex justify-between py-6 md:flex-row flex-col gap-4">
             <h1 className="text-left xl:text-6xl font-bold md:w-80 md:text-5xl text-4xl w-96 font-Inter">
               Power that scares
@@ -37,7 +36,7 @@ export default function Blog() {
             </div>
           </div>
         </div>
-        <div id="grid-item-2" className="text-left text-offWhite px-6 py-7">
+        <div className="px-6 py-7">
           <h3 className="text-2xl font-semibold mb-5 uppercase">Latest posts</h3>
           <div className="divide-y divide-gray-900">
             <NewCardItem

@@ -1,19 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  collection,
-  addDoc,
-  getDoc,
-  query,
-  onSnapshot,
-  deleteDoc,
-  doc,
-  getDocs,
-} from "firebase/firestore";
-import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
-import { db, imageDb } from "@/lib/firebase/firebase";
-import { v4 as uuid } from "uuid";
+import { getDownloadURL, listAll, ref } from "firebase/storage";
+import { imageDb } from "@/lib/firebase/firebase";
 import Image from "next/image";
 import { removeDuplicates } from "@/utils/utils";
 
@@ -31,7 +20,7 @@ export default function Cars() {
         });
       });
     });
-  }, []);
+  }, [imagesListRef]);
 
   return (
     <main className="drawer drawer-end lg:max-w-[1300px] lg:m-auto z-0">

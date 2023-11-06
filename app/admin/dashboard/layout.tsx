@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import NewspaperIcon from "@mui/icons-material/Newspaper";

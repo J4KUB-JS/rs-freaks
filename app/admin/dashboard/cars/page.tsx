@@ -1,18 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  collection,
-  addDoc,
-  getDoc,
-  query,
-  onSnapshot,
-  deleteDoc,
-  doc,
-  getDocs,
-} from "firebase/firestore";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
-import { db, imageDb } from "../../../../lib/firebase/firebase";
+import { imageDb } from "../../../../lib/firebase/firebase";
 import { v4 as uuid } from "uuid";
 import Image from "next/image";
 
@@ -45,7 +35,7 @@ export default function Cars() {
         });
       });
     });
-  }, []);
+  }, [imagesListRef]);
 
   const addImages = async (e: any) => {
     e.preventDefault();

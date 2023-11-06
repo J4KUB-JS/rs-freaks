@@ -5,23 +5,16 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import {
   collection,
   addDoc,
-  getDoc,
   query,
   onSnapshot,
   deleteDoc,
   doc,
-  getDocs,
 } from "firebase/firestore";
 import { db, imageDb } from "../../../../lib/firebase/firebase";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuid } from "uuid";
-
-import Image from "next/image";
-import events from "../../../public/img/events.png";
-import { redirect } from "next/navigation";
-import { getAuth } from "firebase/auth";
 import EventDialog from "./../Components/EventDialog";
 
 export interface Event {
@@ -75,12 +68,11 @@ export default function AdminDashboard() {
         });
       });
     });
-  }, []);
+  }, [imagesListRef]);
 
   const addEvent = async (e: any) => {
     e.preventDefault();
     if (newItem.name !== "" && newItem.date !== "" && newItem.description !== "") {
-      // setItems([...items, newItem]);
       const fileId = uuid();
       await addDoc(collection(db, "events"), {
         name: newItem.name.trim(),

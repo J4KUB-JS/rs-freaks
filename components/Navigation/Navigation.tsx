@@ -32,9 +32,9 @@ export const Navigation = () => {
 
   return (
     <>
-      <div className="drawer drawer-end lg:max-w-[1300px] lg:m-auto z-10">
+      <div className="drawer drawer-end lg:max-w-[1300px] lg:m-auto z-10 sticky top-0 bg-gray-50">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex justify-between items-center px-8 py-8">
+        <div className="drawer-content flex justify-between items-center px-8 py-6 ">
           <div className="flex items-center gap-10">
             <a href="/">
               <Image src={Logo} alt="" className="w-14" />

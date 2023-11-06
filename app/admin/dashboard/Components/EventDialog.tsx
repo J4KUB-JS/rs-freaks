@@ -1,6 +1,7 @@
 import { Close } from "@mui/icons-material";
 import { Event } from "../page";
 import AddIcon from "@mui/icons-material/Add";
+import { FileDropDown } from "./FileDropDown";
 
 interface EventDialogProps {
   item: Event;
@@ -54,12 +55,9 @@ export default function EventDialog({
               <label className="label">
                 <span className="label-text">Files</span>
               </label>
-              <input
-                type="file"
-                className="file-input file-input-bordered w-full"
-                onChange={(e) =>
-                  onChange("files", e.target.files ? e.target.files[0] : null)
-                }
+              <FileDropDown
+                onChange={(value) => onChange("files", value)}
+                urls={item.files || []}
               />
             </div>
             <div className="form-control w-full">

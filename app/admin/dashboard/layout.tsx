@@ -9,27 +9,45 @@ import { UserAuth } from "@/app/context/AuthContext";
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  const { user, googleSignIn, logOut } = UserAuth();
+  const { user } = UserAuth();
 
   return (
-    <div className="px-32 grid grid-cols-5">
+    <div className="px-32 grid grid-cols-5 gap-10">
       {user && (
         <>
-          <div>
-            <ul className="menu w-56 rounded-box bg-gray-200">
-              <li>
-                <a href="/admin/dashboard/events">
+          <div className="col-span-1">
+            <ul className="menu w-full rounded-xl bg-gray-200">
+              <li
+                className={`${
+                  pathname === "/admin/dashboard"
+                    ? "bg-gray-800 text-gray-50 rounded-lg"
+                    : ""
+                }`}
+              >
+                <a href="/admin/dashboard">
                   <EmojiEventsIcon />
                   Events
                 </a>
               </li>
-              <li>
+              <li
+                className={`${
+                  pathname === "/admin/dashboard/cars"
+                    ? "bg-gray-800 text-gray-50 rounded-lg"
+                    : ""
+                }`}
+              >
                 <a href="/admin/dashboard/cars">
                   <TimeToLeaveIcon />
                   Cars in club
                 </a>
               </li>
-              <li>
+              <li
+                className={`${
+                  pathname === "/admin/dashboard/blog"
+                    ? "bg-gray-800 text-gray-50 rounded-lg"
+                    : ""
+                }`}
+              >
                 <a href="/admin/dashboard/blog">
                   <NewspaperIcon />
                   Blog
@@ -37,7 +55,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               </li>
             </ul>
           </div>
-          <div className=" col-span-4 bg-gray-200 rounded-box p-4">{children}</div>
+          <div className=" col-span-4 bg-gray-200 rounded-box px-8 py-6">{children}</div>
         </>
       )}
     </div>

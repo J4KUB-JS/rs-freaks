@@ -5,12 +5,14 @@ import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { imageDb } from "../../../../lib/firebase/firebase";
 import { v4 as uuid } from "uuid";
 import Image from "next/image";
+import { FileDropDown } from "../Components/FileDropDown";
 
 export default function Cars() {
   const imagesListRef = ref(imageDb, "carsInClub/");
 
   const [imageUrls, setImageUrls] = useState<any[]>([]);
   const [newImage, setNewImage] = useState<any>(null);
+  const [uploadDialogOpened, setUploadDialogOpened] = useState(false);
 
   function removeDuplicates(arr: string[]): string[] {
     const uniqueArray: string[] = [];
@@ -35,7 +37,7 @@ export default function Cars() {
         });
       });
     });
-  }, [imagesListRef]);
+  }, []);
 
   const addImages = async (e: any) => {
     e.preventDefault();
@@ -54,19 +56,25 @@ export default function Cars() {
 
   return (
     <main className="z-0">
-      <div className="form-control max-w-sm">
-        <label className="label">
-          <span className="label-text">Files</span>
-        </label>
-        <input
-          type="file"
-          className="file-input file-input-bordered w-full"
-          onChange={(e) => setNewImage(e.target.files ? e.target.files[0] : null)}
+      {uploadDialogOpened && (
+        <FileDropDown
+          onChange={(value) => setNewImage(value)}
+          urls={[]}
+          onUpload={addImages}
+          onClose={() => setUploadDialogOpened(false)}
+          asDialog
         />
-        <button className="btn" onClick={addImages}>
-          Add
-        </button>
+      )}
+
+      <div className="flex justify-between items-center mb-10">
+        <div className="text-xl font-bold">Events</div>
+        <div>
+          <button className="btn" onClick={() => setUploadDialogOpened(true)}>
+            Upload Files
+          </button>
+        </div>
       </div>
+
       <div className="flex flex-wrap gap-5 mt-10">
         {imageUrls.map((img, index) => {
           return <Image src={img} key={index} width={200} height={200} alt="" />;

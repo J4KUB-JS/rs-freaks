@@ -37,7 +37,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       setUser(currentUser);
     });
     return () => unsubscribe();
-  }, [user]);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, googleSignIn, logOut }}>

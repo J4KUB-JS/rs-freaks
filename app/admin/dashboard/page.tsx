@@ -16,6 +16,7 @@ import moment from "moment";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuid } from "uuid";
 import EventDialog from "./Components/EventDialog";
+import { Edit } from "@mui/icons-material";
 
 export interface Event {
   date: string;
@@ -68,7 +69,7 @@ export default function AdminDashboard() {
         });
       });
     });
-  }, [imagesListRef]);
+  }, []);
 
   const addEvent = async (e: any) => {
     e.preventDefault();
@@ -124,8 +125,8 @@ export default function AdminDashboard() {
           onClose={() => setIsDialogOpen(false)}
         />
       )}
-      <div className="flex justify-between">
-        <div>Events</div>
+      <div className="flex justify-between items-center mb-10">
+        <div className="text-xl font-bold">Events</div>
         <div>
           <button className="btn" onClick={() => setIsDialogOpen(true)}>
             Add event
@@ -138,7 +139,7 @@ export default function AdminDashboard() {
           {items.map((item, id) => {
             return (
               <li key={id}>
-                <div className=" border-t-8 border-gray-900">
+                <div className=" border-t-4 border-gray-900">
                   <div className="text-lg font-bold">{item.name}</div>
                   <div className="text-sm">
                     <span className="font-bold">
@@ -148,9 +149,20 @@ export default function AdminDashboard() {
                     <span className="font-bold">{moment(item.date).format("HH:mm")}</span>
                   </div>
                 </div>
-                <button className="btn" onClick={() => deleteItem(item.id)}>
-                  <DeleteForeverIcon />
-                </button>
+                <div className="join w-full mt-4">
+                  <div
+                    className="bg-red-500 border-none join-item w-[50%] flex justify-center items-center py-1"
+                    onClick={() => deleteItem(item.id)}
+                  >
+                    <DeleteForeverIcon />
+                  </div>
+                  <div
+                    className="bg-emerald-500 border-none join-item w-[50%] flex justify-center items-center py-1"
+                    onClick={() => deleteItem(item.id)}
+                  >
+                    <Edit />
+                  </div>
+                </div>
               </li>
             );
           })}

@@ -16,13 +16,14 @@ export default function Blog() {
           <div className="text-red-400 font-semibold">By RS_Freaks</div>
         </div>
       </div>
-      <div className="grid lg:grid-cols-3 gap-x-7 gap-y-12 md:grid-cols-2 sm:grid-cols-1">
-        <div id="grid-item-1" className="md:col-span-2 sm:col-span-1 px-6">
+
+      <div className="grid lg:grid-cols-3 gap-x-7 md:grid-cols-2 sm:grid-cols-1">
+        <div className="md:col-span-2 sm:col-span-1 px-6">
           <div className="w-full overflow-hidden">
             <Image alt="" src={blogMain} />
           </div>
           <div className="flex justify-between py-6 md:flex-row flex-col gap-4">
-            <h1 className="text-left xl:text-6xl font-bold md:w-80 md:text-5xl text-6xl w-96">
+            <h1 className="text-left xl:text-6xl font-bold md:w-80 md:text-5xl text-4xl w-96 font-Inter">
               Power that scares
             </h1>
             <div className="w-[400px] text-left text-darkGrayishBlue flex gap-6 flex-col items-start justify-between xl:text-lg pr-5">
@@ -30,7 +31,7 @@ export default function Blog() {
                 “I have driven few tuned sports cars but this one is something I have
                 never experienced”
               </p>
-              <button className="bg-softRed hover:bg-veryDarkBlue text-offWhite text-xl px-6 py-2 font-light uppercase tracking-widest">
+              <button className="bg-gray-900 hover:bg-red-500 text-white font-Inter text-xl px-6 py-2 font-light uppercase tracking-widest">
                 Read more
               </button>
             </div>
@@ -38,45 +39,25 @@ export default function Blog() {
         </div>
         <div id="grid-item-2" className="text-left text-offWhite px-6 py-7">
           <h3 className="text-2xl font-semibold mb-5 uppercase">Latest posts</h3>
-          <div className="space-y-7 divide-y divide-gray-900">
+          <div className="divide-y divide-gray-900">
             <NewCardItem
+              imgSrc={blog1}
               title={"Hydrogen VS Electric Cars"}
               body={"Will hydrogen-fueled cars ever catch up to EVs?"}
             />
             <NewCardItem
+              imgSrc={blog2}
               title={"The Downsides of AI Artistry"}
               body={
                 "What are the possible adverse effects of on-demand AI image generation?"
               }
             />
             <NewCardItem
+              imgSrc={blog3}
               title={"Is VC Funding Drying Up?"}
               body={
                 "Private funding by VC firms is down 50% YOY. We take a look at what that means."
               }
-            />
-          </div>
-        </div>
-        <div>
-          <div>Interviews</div>
-          <div className="flex justify-between lg:col-span-3 md:col-span-1 lg:flex-row flex-col gap-5">
-            <CardItem
-              index={"01"}
-              title={"Reviving Retro PCs"}
-              body={"What happens when old PCs are given modern upgrades?"}
-              imgSrc={blog1}
-            />
-            <CardItem
-              index={"02"}
-              title={"Top 10 Laptops of 2022"}
-              body={"Our best picks for various needs and budgets."}
-              imgSrc={blog2}
-            />
-            <CardItem
-              index={"03"}
-              title={"The Growth of Gaming"}
-              body={"How the pandemic has sparked fresh opportunities."}
-              imgSrc={blog3}
             />
           </div>
         </div>

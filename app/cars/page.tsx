@@ -20,7 +20,7 @@ export default function Cars() {
         });
       });
     });
-  }, [imagesListRef]);
+  }, []);
 
   return (
     <main className="drawer drawer-end lg:max-w-[1300px] lg:m-auto z-0">

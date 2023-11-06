@@ -41,7 +41,7 @@ export default function Cars() {
             </span>
           </div>
         </div>
-        <div className="gap-4 mt-10 px-16 lg:col-span-3 col-span-5 grid grid-cols-1 sm:grid-cols-2">
+        <div className="gap-4 mt-10 px-6 lg:col-span-3 col-span-5 grid grid-cols-1 sm:grid-cols-2 justify-self-center">
           {imageUrls.map((img, index) => {
             return (
               <Image
@@ -49,7 +49,9 @@ export default function Cars() {
                 key={index}
                 width={200}
                 height={600}
-                className={`w-full h-full ${index % 2 == 0 ? "mt-16" : ""}`}
+                className={`w-auto h-[600px] ${
+                  index % 2 === 0 ? "lg:relative lg:top-20" : ""
+                }`}
                 alt=""
               />
             );

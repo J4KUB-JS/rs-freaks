@@ -12,7 +12,7 @@ interface FileDropDownProps {
   errorMessage?: string;
   onChange: (value: any) => void;
   label?: string;
-  onClose: () => void;
+  onClose?: () => void;
   onUpload?: (e: any) => void;
   asDialog?: boolean;
 }

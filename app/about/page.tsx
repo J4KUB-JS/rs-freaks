@@ -8,7 +8,7 @@ import about4 from "../../public/img/about-4.png";
 
 export default function About() {
   return (
-    <main className="lg:max-w-[1300px] lg:m-auto tracking-wide">
+    <main className="lg:max-w-[1300px] lg:m-auto tracking-wide z-0">
       <div className="grid grid-cols-2 gap-10 lg:gap-24 px-4 md:px-16 lg:mt-20 mt-10 mb-16 item">
         <div className="col-span-2 lg:col-span-1">
           <Image src={about1} alt="" className="hidden lg:block w-auto h-[700px]" />

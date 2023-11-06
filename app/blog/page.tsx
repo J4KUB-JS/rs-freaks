@@ -9,7 +9,7 @@ import blogMain from "../../public/img/blog-main.png";
 
 export default function Blog() {
   return (
-    <main className="lg:max-w-[1200px] lg:m-auto tracking-wide">
+    <main className="lg:max-w-[1200px] lg:m-auto tracking-wide z-0">
       <div className="my-10 lg:my-20 uppercase flex justify-center font-Inter">
         <div>
           <div className=" text-4xl font-extrabold lg:text-8xl">All about cars</div>

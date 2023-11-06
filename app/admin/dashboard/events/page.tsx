@@ -123,7 +123,7 @@ export default function AdminDashboard() {
   };
 
   return (
-    <main className="lg:max-w-[1200px] lg:m-auto tracking-wide">
+    <main className="lg:max-w-[1200px] lg:m-auto tracking-wide z-0">
       {isDialogOpened && (
         <EventDialog
           item={newItem}

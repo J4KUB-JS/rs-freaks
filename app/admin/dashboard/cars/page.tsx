@@ -21,6 +21,7 @@ export default function Cars() {
 
   const [imageUrls, setImageUrls] = useState<any[]>([]);
   const [newImage, setNewImage] = useState<any>(null);
+
   function removeDuplicates(arr: string[]): string[] {
     const uniqueArray: string[] = [];
     const seen: { [key: string]: boolean } = {};
@@ -62,7 +63,7 @@ export default function Cars() {
   };
 
   return (
-    <main className="">
+    <main className="z-0">
       <div className="form-control max-w-sm">
         <label className="label">
           <span className="label-text">Files</span>

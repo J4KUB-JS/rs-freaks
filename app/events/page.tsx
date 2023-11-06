@@ -39,11 +39,11 @@ export default function Events() {
   }, []);
 
   return (
-    <main className="drawer drawer-end lg:max-w-[1300px] lg:m-auto z-10">
+    <main className="drawer drawer-end lg:max-w-[1300px] lg:m-auto z-0">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-10 lg:gap-x-32 px-10 lg:px-16 mt-10">
         <div className="col-span-2 lg:col-span-1">
           <div>
-            <div className="text-6xl font-bold uppercase">Events</div>
+            <div className="text-6xl font-bold uppercase font-Inter">Events</div>
             <div className="text-xl uppercase text-red-400">By RS_FREAKS</div>
             <div className="mt-8 text-lg max-w-lg">
               Don&apos;t ask just get to the spot. Be a part of our team and never drive

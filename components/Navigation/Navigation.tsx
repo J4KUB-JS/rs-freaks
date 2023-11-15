@@ -109,7 +109,7 @@ export const Navigation = () => {
                     </a>
                   </li>
                   <li>
-                    <a href="/admin/dashboard" className=" space-x-1">
+                    <a href="/admin/dashboard/events" className=" space-x-1">
                       <AdminPanelSettingsIcon />
                       <span> Admin Panel</span>
                     </a>
@@ -161,9 +161,9 @@ export const Navigation = () => {
                       </a>
                     </li>
                     <li>
-                      <a href="/admin/dashboard" className=" space-x-1">
+                      <a href="/admin/dashboard/events" className=" space-x-1">
                         <AdminPanelSettingsIcon />
-                        <span> Admin Panel</span>
+                        <span>Admin Panel</span>
                       </a>
                     </li>
                   </ul>

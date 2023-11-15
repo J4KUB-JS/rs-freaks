@@ -8,6 +8,8 @@ import homeEvents from "../public/img/home-events.png";
 import homeEvents2 from "../public/img/home-events-2.png";
 
 export default function Home() {
+
+
   return (
     <main className="lg:max-w-[1300px] lg:m-auto tracking-wide z-0">
       <div className="uppercase text-center md:text-left md:px-16 py-10 relative tracking-widest">

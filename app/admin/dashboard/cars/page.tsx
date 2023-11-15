@@ -6,52 +6,56 @@ import { imageDb } from "../../../../lib/firebase/firebase";
 import { v4 as uuid } from "uuid";
 import Image from "next/image";
 import { FileDropDown } from "../Components/FileDropDown";
+import { removeDuplicates } from "@/utils/utils";
+import {
+  collection,
+  addDoc,
+  query,
+  onSnapshot,
+  deleteDoc,
+  doc,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
+import { db } from "../../../../lib/firebase/firebase";
 
 export default function Cars() {
   const imagesListRef = ref(imageDb, "carsInClub/");
 
-  const [imageUrls, setImageUrls] = useState<any[]>([]);
-  const [newImage, setNewImage] = useState<any>(null);
+  const [imageUrls, setImageUrls] = useState<{ files: any[] }[]>([{ files: [] }]);
+  const [newImage, setNewImage] = useState<any[]>([]);
   const [uploadDialogOpened, setUploadDialogOpened] = useState(false);
 
-  function removeDuplicates(arr: string[]): string[] {
-    const uniqueArray: string[] = [];
-    const seen: { [key: string]: boolean } = {};
-
-    for (const item of arr) {
-      if (!seen[item]) {
-        uniqueArray.push(item);
-        seen[item] = true;
-      }
-    }
-
-    return uniqueArray;
-  }
-
   useEffect(() => {
-    listAll(imagesListRef).then((response) => {
-      console.log(response.items);
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageUrls((prev) => removeDuplicates([...prev, url]));
-        });
+    const q = query(collection(db, "carsInClub"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let itemsArr: any[] = [];
+      querySnapshot.forEach((doc) => {
+        itemsArr.push({ ...doc.data() });
       });
+      setImageUrls(itemsArr);
+
+      return () => unsubscribe();
     });
   }, []);
 
-  const addImages = async (e: any) => {
-    e.preventDefault();
+  const uploadPhoto = async (e: any) => {
     const fileId = uuid();
+    const docRef = await addDoc(collection(db, "carsInClub"), {
+      name: "",
+    });
 
-    if (newImage) {
-      const imgRef = ref(imageDb, `carsInClub/${fileId}`);
-
-      uploadBytes(imgRef, newImage)
-        .then((snapshot) => {})
-        .finally(() => {
-          setNewImage(null);
+    await Promise.all(
+      newImage.map((img) => {
+        const imgRef = ref(imageDb, `carsInClub/${img.path}`);
+        uploadBytes(imgRef, img).then(async () => {
+          const downloadURL = await getDownloadURL(imgRef);
+          await updateDoc(doc(db, "carsInClub", docRef.id), {
+            files: arrayUnion(downloadURL),
+          });
         });
-    }
+      })
+    );
   };
 
   return (
@@ -59,8 +63,8 @@ export default function Cars() {
       {uploadDialogOpened && (
         <FileDropDown
           onChange={(value) => setNewImage(value)}
-          urls={[]}
-          onUpload={addImages}
+          urls={newImage || []}
+          onUpload={uploadPhoto}
           onClose={() => setUploadDialogOpened(false)}
           asDialog
         />
@@ -77,7 +81,10 @@ export default function Cars() {
 
       <div className="flex flex-wrap gap-5 mt-10">
         {imageUrls.map((img, index) => {
-          return <Image src={img} key={index} width={200} height={200} alt="" />;
+          console.log(img);
+          return img.files.map((imgURL) => {
+            return <Image src={imgURL} key={index} width={200} height={200} alt="" />;
+          });
         })}
       </div>
     </main>

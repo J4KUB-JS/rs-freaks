@@ -1,5 +1,5 @@
 import { Close } from "@mui/icons-material";
-import { Event } from "../page";
+import { Event } from "../events/page";
 import AddIcon from "@mui/icons-material/Add";
 import { FileDropDown } from "./FileDropDown";
 

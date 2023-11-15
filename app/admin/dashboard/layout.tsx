@@ -24,7 +24,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     : ""
                 }`}
               >
-                <a href="/admin/dashboard">
+                <a href="/admin/dashboard/events">
                   <EmojiEventsIcon />
                   Events
                 </a>

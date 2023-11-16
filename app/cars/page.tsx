@@ -2,7 +2,7 @@ import { collection, query, getDocs } from "firebase/firestore";
 import { db } from "../../lib/firebase/firebase";
 import Image from "next/image";
 
-export async function getData() {
+async function getData() {
   const q = query(collection(db, "carsInClub"));
   const results = await getDocs(q);
   return results.docs.map((doc) => {

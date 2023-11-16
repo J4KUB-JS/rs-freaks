@@ -11,7 +11,7 @@ interface Events {
   date: string;
 }
 
-export async function getData(): Promise<Events[]> {
+async function getData(): Promise<Events[]> {
   const q = query(
     collection(db, "events"),
     where("date", ">=", `${moment().format("MM")}/00/2023`),
@@ -19,7 +19,12 @@ export async function getData(): Promise<Events[]> {
   );
   const results = await getDocs(q);
   return results.docs.map((doc) => {
-    return { ...doc.data(), id: doc.id };
+    return {
+      isMain: doc.data().isMain,
+      name: doc.data().name,
+      date: doc.data().date,
+      id: doc.id,
+    };
   });
 }
 

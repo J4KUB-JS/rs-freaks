@@ -82,13 +82,26 @@ export const FileDropDown = ({
         </div>
       </div>
 
-      <div className={`grid grid-cols-2 gap-5 ${files.length !== 0 ? "mt-10" : ""}`}>
+      <div
+        className={`grid grid-cols-4 gap-5 max-h-[200px] overflow-y-scroll pr-2 ${
+          files.length !== 0 ? "mt-6" : ""
+        }`}
+      >
         {files.map((file, index) => (
-          <div key={index} className="relative rounded-md shadow-lg bg-white h-52">
-            <Image src={file.preview} width={100} height={100} alt="" />
+          <div
+            key={index}
+            className="relative rounded-md shadow-lg bg-white rounded-tr-md"
+          >
+            <Image
+              src={file.preview}
+              width={100}
+              height={100}
+              alt=""
+              className="rounded-tr-md"
+            />
             <button
               type="button"
-              className="w-7 h-7 text-gray-50 bg-red-400 hover:text-red-500 hover:bg-red-300 rounded-tr-md rounded-bl-md  flex justify-center items-center absolute -top-0 -right-0 transition-colors"
+              className="w-7 h-7 text-gray-50 bg-red-400 hover:text-red-500 hover:bg-red-300 rounded-tr-md rounded-bl-md  flex justify-center items-center absolute top-0 -right-0 transition-colors"
               onClick={() => removeFile(file.name)}
             >
               <CloseIcon

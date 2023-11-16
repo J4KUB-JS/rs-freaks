@@ -56,6 +56,7 @@ export default function Cars() {
         });
       })
     );
+    setUploadDialogOpened(false);
   };
 
   return (
@@ -81,10 +82,11 @@ export default function Cars() {
 
       <div className="flex flex-wrap gap-5 mt-10">
         {imageUrls.map((img, index) => {
-          console.log(img);
-          return img.files.map((imgURL) => {
-            return <Image src={imgURL} key={index} width={200} height={200} alt="" />;
-          });
+          if (img.files !== undefined) {
+            return img.files.map((imgURL) => {
+              return <Image src={imgURL} key={index} width={200} height={200} alt="" />;
+            });
+          }
         })}
       </div>
     </main>

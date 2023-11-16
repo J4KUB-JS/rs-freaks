@@ -28,7 +28,7 @@ export interface Event {
   files: any;
 }
 
-export default function AdminDashboard() {
+export default function Events() {
   const [items, setItems] = useState<any[]>([]);
   const [newItem, setNewItem] = useState<Event>({
     id: "",
@@ -100,6 +100,8 @@ export default function AdminDashboard() {
     await updateDoc(doc(db, "events", newItem.id), {
       ...newItem,
     });
+
+    setIsDialogOpen(false);
   };
 
   const openEditDialog = (data: any) => {
@@ -133,7 +135,7 @@ export default function AdminDashboard() {
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Description</th>
+                  <th className="w-[100%]">Description</th>
                   <th>Date</th>
                   <th>Actions</th>
                 </tr>

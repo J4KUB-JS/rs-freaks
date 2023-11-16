@@ -27,7 +27,7 @@ export default async function Cars() {
               for every one to join either to join or just hang out
             </div>
             <span className="text-xl uppercase font-bold relative mt-14 inline-block">
-              <a href="/cars">Want to see them in person ? &gt;</a>
+              <a href="/events">Want to see them in person ? &gt;</a>
               <span className="absolute bottom-[-5px] left-0 h-[3px] w-full bg-black"></span>
             </span>
           </div>

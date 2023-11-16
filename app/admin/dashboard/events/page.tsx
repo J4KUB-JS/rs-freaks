@@ -9,6 +9,7 @@ import {
   onSnapshot,
   deleteDoc,
   doc,
+  updateDoc,
 } from "firebase/firestore";
 import { db, imageDb } from "../../../../lib/firebase/firebase";
 import { Suspense, useEffect, useState } from "react";
@@ -19,6 +20,7 @@ import EventDialog from "../Components/EventDialog";
 import { Edit } from "@mui/icons-material";
 
 export interface Event {
+  id: "";
   date: string;
   name: string;
   description: string;
@@ -29,6 +31,7 @@ export interface Event {
 export default function AdminDashboard() {
   const [items, setItems] = useState<any[]>([]);
   const [newItem, setNewItem] = useState<Event>({
+    id: "",
     date: "",
     name: "",
     description: "",
@@ -62,7 +65,14 @@ export default function AdminDashboard() {
 
         uploadBytes(imgRef, newItem.files).then((snapshot) => {});
       }
-      setNewItem({ name: "", description: "", date: "", isMain: false, files: null });
+      setNewItem({
+        id: "",
+        name: "",
+        description: "",
+        date: "",
+        isMain: false,
+        files: null,
+      });
 
       setIsDialogOpen(false);
     }
@@ -85,6 +95,18 @@ export default function AdminDashboard() {
     await deleteDoc(doc(db, "events", id));
   };
 
+  const editItem = async (e: any) => {
+    e.preventDefault();
+    await updateDoc(doc(db, "events", newItem.id), {
+      ...newItem,
+    });
+  };
+
+  const openEditDialog = (data: any) => {
+    setNewItem(data);
+    setIsDialogOpen(true);
+  };
+
   return (
     <main className="lg:max-w-[1200px] lg:m-auto tracking-wide z-0">
       <Suspense fallback={<div>Loading data...</div>}>
@@ -92,7 +114,7 @@ export default function AdminDashboard() {
           <EventDialog
             item={newItem}
             onChange={setNewItemHandler}
-            addEvent={addEvent}
+            onConfirm={newItem.id ? editItem : addEvent}
             onClose={() => setIsDialogOpen(false)}
           />
         )}
@@ -106,40 +128,43 @@ export default function AdminDashboard() {
         </div>
 
         <div className=" col-span-3">
-          <ul className="flex flex-wrap gap-10">
-            {items.map((item, id) => {
-              return (
-                <li key={id}>
-                  <div className=" border-t-4 border-gray-900">
-                    <div className="text-lg font-bold">{item.name}</div>
-                    <div className="text-sm">
-                      <span className="font-bold">
-                        {moment(item.date).format("DD MMM YYYY")}
-                      </span>{" "}
-                      at{" "}
-                      <span className="font-bold">
-                        {moment(item.date).format("HH:mm")}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="join w-full mt-4">
-                    <div
-                      className="bg-red-500 border-none join-item w-[50%] flex justify-center items-center py-1"
-                      onClick={() => deleteItem(item.id)}
-                    >
-                      <DeleteForeverIcon />
-                    </div>
-                    <div
-                      className="bg-emerald-500 border-none join-item w-[50%] flex justify-center items-center py-1"
-                      onClick={() => deleteItem(item.id)}
-                    >
-                      <Edit />
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+          <div className="overflow-x-auto">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {items.map((item, id) => (
+                  <tr key={id} className="">
+                    <td>{item.name}</td>
+                    <td>{item.description}</td>
+                    <td> {moment(item.date).format("DD/MM/YYYY HH:mm")}</td>
+                    <td>
+                      <div className="flex gap-5">
+                        <div
+                          className="btn btn-ghost btn-circle btn-sm bg-red-500 border-none join-item flex justify-center items-center"
+                          onClick={() => deleteItem(item.id)}
+                        >
+                          <DeleteForeverIcon fontSize="small" />
+                        </div>
+                        <div
+                          className="btn btn-ghost btn-circle btn-sm bg-emerald-500 border-none join-item flex justify-center items-center"
+                          onClick={() => openEditDialog(item)}
+                        >
+                          <Edit fontSize="small" />
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </Suspense>
     </main>

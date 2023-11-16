@@ -7,13 +7,13 @@ interface EventDialogProps {
   item: Event;
   onChange: (key: string, value: any) => void;
   onClose: () => void;
-  addEvent: (e: any) => Promise<void>;
+  onConfirm: (e: any) => Promise<void>;
 }
 
 export default function EventDialog({
   item,
   onChange,
-  addEvent,
+  onConfirm,
   onClose,
 }: EventDialogProps) {
   return (
@@ -88,12 +88,12 @@ export default function EventDialog({
 
           <div className="flex justify-end col-span-2 mt-10">
             <button
-              onClick={addEvent}
+              onClick={onConfirm}
               className="btn max-w-xs bg-gray-900 text-gray-50"
               type="submit"
             >
               <AddIcon />
-              Add Event
+              Add / Edit Event
             </button>
           </div>
         </form>

@@ -15,8 +15,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <div className="px-32 grid grid-cols-5 gap-10">
       {user && (
         <>
-          <div className="col-span-1">
-            <ul className="menu w-full rounded-xl bg-gray-200">
+          <div className="col-span-1 relative h-full">
+            <ul className="sticky top-28 menu w-full rounded-xl bg-gray-200">
               <li
                 className={`${
                   pathname === "/admin/dashboard"

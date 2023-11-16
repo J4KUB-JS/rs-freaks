@@ -1,43 +1,30 @@
-"use client";
-
-import {
-  collection,
-  addDoc,
-  getDoc,
-  query,
-  onSnapshot,
-  deleteDoc,
-  doc,
-  where,
-} from "firebase/firestore";
+import { collection, query, getDocs, where } from "firebase/firestore";
 import { db } from "../../lib/firebase/firebase";
-import { useEffect, useState } from "react";
 import moment from "moment";
 import Image from "next/image";
 
 import events from "../../public/img/events.png";
 
-export default function Events() {
-  const [thisMonthEvents, setThisMonthEvents] = useState<any[]>([]);
+interface Events {
+  isMain: boolean;
+  name: string;
+  date: string;
+}
 
-  useEffect(() => {
-    const q = query(
-      collection(db, "events"),
-      where("date", ">=", `${moment().format("MM")}/00/2023`),
-      where("date", "<=", `${moment().format("MM")}/32/2023`)
-    );
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      let itemsArr: any[] = [];
+export async function getData(): Promise<Events[]> {
+  const q = query(
+    collection(db, "events"),
+    where("date", ">=", `${moment().format("MM")}/00/2023`),
+    where("date", "<=", `${moment().format("MM")}/32/2023`)
+  );
+  const results = await getDocs(q);
+  return results.docs.map((doc) => {
+    return { ...doc.data(), id: doc.id };
+  });
+}
 
-      querySnapshot.forEach((doc) => {
-        itemsArr.push({ ...doc.data(), id: doc.id });
-      });
-      setThisMonthEvents(itemsArr);
-
-      return () => unsubscribe();
-    });
-  }, []);
-
+export default async function Events() {
+  const thisMonthEvents = await getData();
   return (
     <main className="drawer drawer-end lg:max-w-[1300px] lg:m-auto z-0">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-10 lg:gap-x-32 px-10 lg:px-16 mt-10">

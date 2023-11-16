@@ -1,31 +1,22 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { getDownloadURL, listAll, ref } from "firebase/storage";
-import { imageDb } from "@/lib/firebase/firebase";
+import { collection, query, getDocs } from "firebase/firestore";
+import { db } from "../../lib/firebase/firebase";
 import Image from "next/image";
-import { removeDuplicates } from "@/utils/utils";
 
-export default function Cars() {
-  const imagesListRef = ref(imageDb, "carsInClub/");
+export async function getData() {
+  const q = query(collection(db, "carsInClub"));
+  const results = await getDocs(q);
+  return results.docs.map((doc) => {
+    return doc.data();
+  });
+}
 
-  const [imageUrls, setImageUrls] = useState<any[]>([]);
-
-  useEffect(() => {
-    listAll(imagesListRef).then((response) => {
-      console.log(response.items);
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageUrls((prev) => removeDuplicates([...prev, url]));
-        });
-      });
-    });
-  }, []);
+export default async function Cars() {
+  const imageUrls = await getData();
 
   return (
     <main className="drawer drawer-end lg:max-w-[1300px] lg:m-auto z-0">
       <div className="grid grid-cols-5">
-        <div className="p-16 col-span-5 md:col-span-5 lg:col-span-2 relative h-full">
+        <div className="p-16 col-span-5 md:col-span-5 lg:col-span-2 relative h-full mt-14">
           <div className="lg:sticky top-32">
             <div className="text-6xl font-bold uppercase font-Inter">Our Team</div>
             <div className="text-xl uppercase text-red-400 max-w-[300px]">
@@ -41,20 +32,20 @@ export default function Cars() {
             </span>
           </div>
         </div>
-        <div className="gap-4 mt-10 px-6 lg:col-span-3 col-span-5 grid grid-cols-1 sm:grid-cols-2 justify-self-center">
+        <div className="gap-4 my-10 px-6 lg:col-span-3 col-span-5 grid grid-cols-1 sm:grid-cols-2 justify-self-center">
           {imageUrls.map((img, index) => {
-            return (
-              <Image
-                src={img}
-                key={index}
-                width={200}
-                height={600}
-                className={`w-auto h-[600px] ${
-                  index % 2 === 0 ? "lg:relative lg:top-20" : ""
-                }`}
-                alt=""
-              />
-            );
+            return img.files.map((imgURL: string) => {
+              return (
+                <Image
+                  src={imgURL}
+                  key={index}
+                  width={300}
+                  height={600}
+                  className={`w-auto h-[600px]`}
+                  alt=""
+                />
+              );
+            });
           })}
         </div>
       </div>

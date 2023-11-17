@@ -16,21 +16,14 @@ import { Suspense, useEffect, useState } from "react";
 import moment from "moment";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuid } from "uuid";
-import EventDialog from "../Components/EventDialog";
-import { Edit } from "@mui/icons-material";
 
-export interface Event {
-  id: "";
-  date: string;
-  name: string;
-  description: string;
-  isMain: boolean;
-  files: any;
-}
+import { Edit } from "@mui/icons-material";
+import { EventType } from "@/app/types";
+import AddEditDialog from "../../_components/AddEditDialog";
 
 export default function Events() {
   const [items, setItems] = useState<any[]>([]);
-  const [newItem, setNewItem] = useState<Event>({
+  const [newItem, setNewItem] = useState<EventType>({
     id: "",
     date: "",
     name: "",
@@ -113,7 +106,9 @@ export default function Events() {
     <main className="lg:max-w-[1200px] lg:m-auto tracking-wide z-0">
       <Suspense fallback={<div>Loading data...</div>}>
         {isDialogOpened && (
-          <EventDialog
+          <AddEditDialog
+            includeDate
+            includeIsMain
             item={newItem}
             onChange={setNewItemHandler}
             onConfirm={newItem.id ? editItem : addEvent}

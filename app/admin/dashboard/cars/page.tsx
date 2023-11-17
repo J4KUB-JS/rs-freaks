@@ -5,7 +5,7 @@ import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { imageDb } from "../../../../lib/firebase/firebase";
 import { v4 as uuid } from "uuid";
 import Image from "next/image";
-import { FileDropDown } from "../Components/FileDropDown";
+import { FileDropDown } from "../../_components/FileDropDown";
 import { removeDuplicates } from "@/utils/utils";
 import {
   collection,

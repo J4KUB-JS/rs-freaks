@@ -1,21 +1,26 @@
 import { Close } from "@mui/icons-material";
-import { Event } from "../events/page";
 import AddIcon from "@mui/icons-material/Add";
 import { FileDropDown } from "./FileDropDown";
+import { EventType, PostType } from "@/app/types";
+import { get } from "lodash";
 
-interface EventDialogProps {
-  item: Event;
+interface AddEditDialogProps {
+  item: EventType | PostType;
   onChange: (key: string, value: any) => void;
   onClose: () => void;
   onConfirm: (e: any) => Promise<void>;
+  includeIsMain?: boolean;
+  includeDate?: boolean;
 }
 
-export default function EventDialog({
+export default function AddEditDialog({
   item,
   onChange,
   onConfirm,
   onClose,
-}: EventDialogProps) {
+  includeDate = false,
+  includeIsMain = false,
+}: AddEditDialogProps) {
   return (
     <div className="absolute w-[100vw] h-[100vh] bg-gray-950 bg-opacity-60 z-10 top-0 left-0 flex justify-center items-center">
       <div className=" max-w-2xl bg-gray-100 p-6 rounded-md">
@@ -39,18 +44,20 @@ export default function EventDialog({
                 placeholder="meat up at..."
               />
             </div>
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text">Date</span>
-              </label>
-              <input
-                type="text"
-                className="input input-bordered w-full"
-                value={item.date}
-                onChange={(e) => onChange("date", e.target.value)}
-                placeholder="10 11 2023 15:30"
-              />
-            </div>
+            {includeDate && (
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text">Date</span>
+                </label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full"
+                  value={get(item, "date", "")}
+                  onChange={(e) => onChange("date", e.target.value)}
+                  placeholder="10 11 2023 15:30"
+                />
+              </div>
+            )}
             <div className="form-control w-full">
               <label className="label">
                 <span className="label-text">Files</span>
@@ -60,17 +67,19 @@ export default function EventDialog({
                 urls={item.files || []}
               />
             </div>
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text">Is Main Event</span>
-              </label>
-              <input
-                type="checkbox"
-                checked={item.isMain}
-                className="toggle input input-bordered"
-                onChange={(e) => onChange("isMain", !item.isMain)}
-              />
-            </div>
+            {includeIsMain && (
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text">Is Main Event</span>
+                </label>
+                <input
+                  type="checkbox"
+                  checked={get(item, "isMain", false)}
+                  className="toggle input input-bordered"
+                  onChange={(e) => onChange("isMain", !get(item, "isMain", true))}
+                />
+              </div>
+            )}
           </div>
           <div>
             <div className="form-control w-full">

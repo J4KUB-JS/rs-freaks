@@ -17,26 +17,17 @@ import { Suspense, useEffect, useState } from "react";
 import moment from "moment";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuid } from "uuid";
-import EventDialog from "../Components/EventDialog";
+import EventDialog from "../../_components/AddEditDialog";
 import { Edit, Preview } from "@mui/icons-material";
-
-export interface Event {
-  id: "";
-  date: string;
-  name: string;
-  description: string;
-  isMain: boolean;
-  files: any;
-}
+import { PostType } from "@/app/types";
+import AddEditDialog from "../../_components/AddEditDialog";
 
 export default function Blog() {
   const [items, setItems] = useState<any[]>([]);
-  const [newItem, setNewItem] = useState<Event>({
+  const [newItem, setNewItem] = useState<PostType>({
     id: "",
-    date: "",
     name: "",
     description: "",
-    isMain: false,
     files: null,
   });
 
@@ -51,12 +42,10 @@ export default function Blog() {
 
   const addEvent = async (e: any) => {
     e.preventDefault();
-    if (newItem.name !== "" && newItem.date !== "" && newItem.description !== "") {
+    if (newItem.name !== "" && newItem.description !== "") {
       const docRef = await addDoc(collection(db, "blog"), {
         name: newItem.name.trim(),
-        date: newItem.date,
         description: newItem.description,
-        isMain: newItem.isMain,
       });
 
       await Promise.all(
@@ -75,9 +64,7 @@ export default function Blog() {
         id: "",
         name: "",
         description: "",
-        date: "",
-        isMain: false,
-        files: null,
+        files: "",
       });
 
       setIsDialogOpen(false);
@@ -118,7 +105,7 @@ export default function Blog() {
     <main className="lg:max-w-[1200px] lg:m-auto tracking-wide z-0">
       <Suspense fallback={<div>Loading data...</div>}>
         {isDialogOpened && (
-          <EventDialog
+          <AddEditDialog
             item={newItem}
             onChange={setNewItemHandler}
             onConfirm={newItem.id ? editItem : addEvent}
@@ -163,12 +150,11 @@ export default function Blog() {
                         >
                           <Edit fontSize="small" />
                         </div>
-                        <div
-                          className="btn btn-ghost btn-circle btn-sm bg-blue-500 border-none join-item flex justify-center items-center"
-                          onClick={() => openEditDialog(item)}
-                        >
-                          <Preview fontSize="small" />
-                        </div>
+                        <a href={`/admin/dashboard/blog/${item.id}`}>
+                          <div className="btn btn-ghost btn-circle btn-sm bg-blue-500 border-none join-item flex justify-center items-center">
+                            <Preview fontSize="small" />
+                          </div>
+                        </a>
                       </div>
                     </td>
                   </tr>

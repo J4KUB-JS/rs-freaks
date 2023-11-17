@@ -103,15 +103,15 @@ export const Navigation = () => {
                   className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <a href="/" className=" space-x-1" onClick={handleSignOut}>
-                      <LogoutIcon />
-                      <span>Log Out</span>
-                    </a>
-                  </li>
-                  <li>
                     <a href="/admin/dashboard/events" className=" space-x-1">
                       <AdminPanelSettingsIcon />
                       <span> Admin Panel</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/" className=" space-x-1" onClick={handleSignOut}>
+                      <LogoutIcon />
+                      <span>Log Out</span>
                     </a>
                   </li>
                 </ul>
@@ -155,15 +155,15 @@ export const Navigation = () => {
                     className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
                   >
                     <li>
-                      <a href="/" className=" space-x-1" onClick={handleSignOut}>
-                        <LogoutIcon />
-                        <span>Log Out</span>
-                      </a>
-                    </li>
-                    <li>
                       <a href="/admin/dashboard/events" className=" space-x-1">
                         <AdminPanelSettingsIcon />
                         <span>Admin Panel</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/" className=" space-x-1" onClick={handleSignOut}>
+                        <LogoutIcon />
+                        <span>Log Out</span>
                       </a>
                     </li>
                   </ul>

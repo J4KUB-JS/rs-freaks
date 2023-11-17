@@ -18,7 +18,7 @@ export const Footer = () => {
           </div>
           <div className="flex flex-wrap gap-3">
             <div className="">
-              <a href="/home">Home</a>
+              <a href="/">Home</a>
             </div>
             <div className="">
               <a href="/about">About</a>

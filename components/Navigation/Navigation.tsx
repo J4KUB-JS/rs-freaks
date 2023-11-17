@@ -135,7 +135,7 @@ export const Navigation = () => {
               <label htmlFor="my-drawer-4" className="drawer-button cursor-pointer">
                 <CloseIcon fontSize="large" />
               </label>
-              {user && (
+              {user ? (
                 <div className="dropdown dropdown-end">
                   <label
                     tabIndex={0}
@@ -168,6 +168,13 @@ export const Navigation = () => {
                     </li>
                   </ul>
                 </div>
+              ) : (
+                <button
+                  className="font-Inter border-4 border-gray-950 px-2 uppercase font-bold text-xl"
+                  onClick={handleSignIn}
+                >
+                  Join Club!
+                </button>
               )}
             </div>
             <li className="">

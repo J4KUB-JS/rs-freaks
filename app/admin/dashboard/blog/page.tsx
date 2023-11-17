@@ -28,7 +28,7 @@ export default function Blog() {
     id: "",
     name: "",
     description: "",
-    files: null,
+    files: [],
   });
 
   const setNewItemHandler = (key: string, value: any) => {
@@ -46,6 +46,7 @@ export default function Blog() {
       const docRef = await addDoc(collection(db, "blog"), {
         name: newItem.name.trim(),
         description: newItem.description,
+        files: [],
       });
 
       await Promise.all(
@@ -64,7 +65,7 @@ export default function Blog() {
         id: "",
         name: "",
         description: "",
-        files: "",
+        files: [],
       });
 
       setIsDialogOpen(false);
@@ -94,11 +95,27 @@ export default function Blog() {
       ...newItem,
     });
     setIsDialogOpen(false);
+    setNewItem({
+      id: "",
+      name: "",
+      description: "",
+      files: [],
+    });
   };
 
   const openEditDialog = (data: any) => {
     setNewItem(data);
     setIsDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setNewItem({
+      id: "",
+      name: "",
+      description: "",
+      files: [],
+    });
+    setIsDialogOpen(false);
   };
 
   return (
@@ -109,7 +126,7 @@ export default function Blog() {
             item={newItem}
             onChange={setNewItemHandler}
             onConfirm={newItem.id ? editItem : addEvent}
-            onClose={() => setIsDialogOpen(false)}
+            onClose={() => closeDialog()}
           />
         )}
         <div className="flex justify-between items-center mb-10">

@@ -10,6 +10,7 @@ import {
   deleteDoc,
   doc,
   updateDoc,
+  arrayUnion,
 } from "firebase/firestore";
 import { db, imageDb } from "../../../../lib/firebase/firebase";
 import { Suspense, useEffect, useState } from "react";
@@ -17,7 +18,7 @@ import moment from "moment";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuid } from "uuid";
 
-import { Edit } from "@mui/icons-material";
+import { Edit, Preview } from "@mui/icons-material";
 import { EventType } from "@/app/types";
 import AddEditDialog from "../../_components/AddEditDialog";
 
@@ -45,19 +46,26 @@ export default function Events() {
     e.preventDefault();
     if (newItem.name !== "" && newItem.date !== "" && newItem.description !== "") {
       const fileId = uuid();
-      await addDoc(collection(db, "events"), {
+      const docRef = await addDoc(collection(db, "events"), {
         name: newItem.name.trim(),
         date: newItem.date,
         description: newItem.description,
         isMain: newItem.isMain,
-        fileId: newItem.files ? `eventImages/${fileId}` : "",
+        files: [],
       });
 
-      if (newItem.files) {
-        const imgRef = ref(imageDb, `eventImages/${fileId}`);
+      await Promise.all(
+        newItem.files.map((img: any) => {
+          const imgRef = ref(imageDb, `eventImages/${img.path}`);
+          uploadBytes(imgRef, img).then(async () => {
+            const downloadURL = await getDownloadURL(imgRef);
+            await updateDoc(doc(db, "events", docRef.id), {
+              files: arrayUnion(downloadURL),
+            });
+          });
+        })
+      );
 
-        uploadBytes(imgRef, newItem.files).then((snapshot) => {});
-      }
       setNewItem({
         id: "",
         name: "",
@@ -95,11 +103,32 @@ export default function Events() {
     });
 
     setIsDialogOpen(false);
+
+    setNewItem({
+      id: "",
+      name: "",
+      description: "",
+      date: "",
+      isMain: false,
+      files: null,
+    });
   };
 
   const openEditDialog = (data: any) => {
     setNewItem(data);
     setIsDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setNewItem({
+      id: "",
+      name: "",
+      description: "",
+      date: "",
+      isMain: false,
+      files: null,
+    });
+    setIsDialogOpen(false);
   };
 
   return (
@@ -112,7 +141,7 @@ export default function Events() {
             item={newItem}
             onChange={setNewItemHandler}
             onConfirm={newItem.id ? editItem : addEvent}
-            onClose={() => setIsDialogOpen(false)}
+            onClose={() => closeDialog()}
           />
         )}
         <div className="flex justify-between items-center mb-10">
@@ -155,6 +184,11 @@ export default function Events() {
                         >
                           <Edit fontSize="small" />
                         </div>
+                        <a href={`/admin/dashboard/events/${item.id}`}>
+                          <div className="btn btn-ghost btn-circle btn-sm bg-blue-500 border-none join-item flex justify-center items-center">
+                            <Preview fontSize="small" />
+                          </div>
+                        </a>
                       </div>
                     </td>
                   </tr>

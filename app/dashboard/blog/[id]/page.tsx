@@ -25,7 +25,7 @@ export default async function Blog({ params }: { params: { id: string } }) {
     <main className="lg:max-w-[1200px] lg:m-auto tracking-wide z-0">
       <div className="flex justify-between items-center mb-10">
         <div className="text-xl font-bold">
-          <a href="/admin/dashboard/blog">
+          <a href="/dashboard/blog">
             <div className="flex items-center text-sm">
               <KeyboardArrowLeft />
               Go Back

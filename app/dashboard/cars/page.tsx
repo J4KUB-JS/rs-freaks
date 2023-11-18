@@ -13,9 +13,9 @@ import {
   arrayUnion,
 } from "firebase/firestore";
 
-import { imageDb } from "../../../../lib/firebase/firebase";
-import { FileDropDown } from "../../_components/FileDropDown";
-import { db } from "../../../../lib/firebase/firebase";
+import { imageDb } from "../../../lib/firebase/firebase";
+import { db } from "../../../lib/firebase/firebase";
+import { FileDropDown } from "@/components/FileDropDown";
 
 export default function Cars() {
   const [imageUrls, setImageUrls] = useState<{ files: any[] }[]>([{ files: [] }]);

@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import moment from "moment";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import {
   collection,
   addDoc,
@@ -17,19 +17,17 @@ import {
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Edit, Preview } from "@mui/icons-material";
 
-import { EventType } from "@/app/types";
-import { db, imageDb } from "../../../../lib/firebase/firebase";
-import AddEditDialog from "../../_components/AddEditDialog";
+import { PostType } from "@/app/types";
+import { db, imageDb } from "../../../lib/firebase/firebase";
+import AddEditDialog from "../../../components/AddEditDialog";
 
-export default function Events() {
+export default function Blog() {
   const [items, setItems] = useState<any[]>([]);
-  const [newItem, setNewItem] = useState<EventType>({
+  const [newItem, setNewItem] = useState<PostType>({
     id: "",
-    date: "",
     name: "",
     description: "",
-    isMain: false,
-    files: null,
+    files: [],
   });
 
   const setNewItemHandler = (key: string, value: any) => {
@@ -43,21 +41,19 @@ export default function Events() {
 
   const addEvent = async (e: any) => {
     e.preventDefault();
-    if (newItem.name !== "" && newItem.date !== "" && newItem.description !== "") {
-      const docRef = await addDoc(collection(db, "events"), {
+    if (newItem.name !== "" && newItem.description !== "") {
+      const docRef = await addDoc(collection(db, "blog"), {
         name: newItem.name.trim(),
-        date: newItem.date,
         description: newItem.description,
-        isMain: newItem.isMain,
         files: [],
       });
 
       await Promise.all(
         newItem.files.map((img: any) => {
-          const imgRef = ref(imageDb, `eventImages/${img.path}`);
+          const imgRef = ref(imageDb, `blogImages/${img.path}`);
           uploadBytes(imgRef, img).then(async () => {
             const downloadURL = await getDownloadURL(imgRef);
-            await updateDoc(doc(db, "events", docRef.id), {
+            await updateDoc(doc(db, "blog", docRef.id), {
               files: arrayUnion(downloadURL),
             });
           });
@@ -68,9 +64,7 @@ export default function Events() {
         id: "",
         name: "",
         description: "",
-        date: "",
-        isMain: false,
-        files: null,
+        files: [],
       });
 
       setIsDialogOpen(false);
@@ -78,7 +72,7 @@ export default function Events() {
   };
 
   useEffect(() => {
-    const q = query(collection(db, "events"));
+    const q = query(collection(db, "blog"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let itemsArr: any[] = [];
       querySnapshot.forEach((doc) => {
@@ -91,12 +85,13 @@ export default function Events() {
   }, []);
 
   const deleteItem = async (id: string) => {
-    await deleteDoc(doc(db, "events", id));
+    await deleteDoc(doc(db, "blog", id));
   };
 
   const editItem = async (e: any) => {
     e.preventDefault();
-    await updateDoc(doc(db, "events", newItem.id), {
+    console.log(newItem);
+    await updateDoc(doc(db, "blog", newItem.id), {
       ...newItem,
       files: [],
     });
@@ -104,10 +99,10 @@ export default function Events() {
     await Promise.all(
       newItem.files.map((img: any) => {
         if (!(typeof img === "string")) {
-          const imgRef = ref(imageDb, `eventImages/${img.path}`);
+          const imgRef = ref(imageDb, `blogImages/${img.path}`);
           uploadBytes(imgRef, img).then(async () => {
             const downloadURL = await getDownloadURL(imgRef);
-            await updateDoc(doc(db, `events/${newItem.id}`), {
+            await updateDoc(doc(db, `blog/${newItem.id}`), {
               files: arrayUnion(downloadURL),
             });
           });
@@ -116,14 +111,11 @@ export default function Events() {
     );
 
     setIsDialogOpen(false);
-
     setNewItem({
       id: "",
       name: "",
       description: "",
-      date: "",
-      isMain: false,
-      files: null,
+      files: [],
     });
   };
 
@@ -137,9 +129,7 @@ export default function Events() {
       id: "",
       name: "",
       description: "",
-      date: "",
-      isMain: false,
-      files: null,
+      files: [],
     });
     setIsDialogOpen(false);
   };
@@ -149,8 +139,6 @@ export default function Events() {
       <Suspense fallback={<div>Loading data...</div>}>
         {isDialogOpened && (
           <AddEditDialog
-            includeDate
-            includeIsMain
             item={newItem}
             onChange={setNewItemHandler}
             onConfirm={newItem.id ? editItem : addEvent}
@@ -158,10 +146,10 @@ export default function Events() {
           />
         )}
         <div className="flex justify-between items-center mb-10">
-          <div className="text-xl font-bold">Events</div>
+          <div className="text-xl font-bold">Blog</div>
           <div>
             <button className="btn" onClick={() => setIsDialogOpen(true)}>
-              Add event
+              Add Post
             </button>
           </div>
         </div>
@@ -171,9 +159,8 @@ export default function Events() {
             <table className="table">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th className="w-[100%]">Description</th>
-                  <th>Date</th>
+                  <th className="w-[100%]">Title</th>
+                  <th>Publish Date</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -181,7 +168,6 @@ export default function Events() {
                 {items.map((item, id) => (
                   <tr key={id} className="">
                     <td>{item.name}</td>
-                    <td>{item.description}</td>
                     <td> {moment(item.date).format("DD/MM/YYYY HH:mm")}</td>
                     <td>
                       <div className="flex gap-5">
@@ -197,7 +183,7 @@ export default function Events() {
                         >
                           <Edit fontSize="small" />
                         </div>
-                        <a href={`/admin/dashboard/events/${item.id}`}>
+                        <a href={`/dashboard/blog/${item.id}`}>
                           <div className="btn btn-ghost btn-circle btn-sm bg-blue-500 border-none join-item flex justify-center items-center">
                             <Preview fontSize="small" />
                           </div>

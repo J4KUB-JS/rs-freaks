@@ -21,36 +21,36 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <ul className="sticky top-28 menu w-full rounded-xl bg-gray-200">
               <li
                 className={`${
-                  pathname === "/admin/dashboard"
+                  pathname === "/dashboard"
                     ? "bg-gray-800 text-gray-50 rounded-lg hover:bg-gray-300 hover:text-gray-800"
                     : ""
                 }`}
               >
-                <a href="/admin/dashboard/events">
+                <a href="/dashboard/events">
                   <EmojiEventsIcon />
                   Events
                 </a>
               </li>
               <li
                 className={`${
-                  pathname === "/admin/dashboard/cars"
+                  pathname === "/dashboard/cars"
                     ? "bg-gray-800 text-gray-50 rounded-lg hover:bg-gray-300 hover:text-gray-800"
                     : ""
                 }`}
               >
-                <a href="/admin/dashboard/cars">
+                <a href="/dashboard/cars">
                   <TimeToLeaveIcon />
                   Cars in club
                 </a>
               </li>
               <li
                 className={`${
-                  pathname === "/admin/dashboard/blog"
+                  pathname === "/dashboard/blog"
                     ? "bg-gray-800 text-gray-50 rounded-lg hover:bg-gray-300 hover:text-gray-800"
                     : ""
                 }`}
               >
-                <a href="/admin/dashboard/blog">
+                <a href="/dashboard/blog">
                   <NewspaperIcon />
                   Blog
                 </a>

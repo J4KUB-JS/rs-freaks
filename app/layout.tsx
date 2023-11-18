@@ -1,7 +1,7 @@
 "use client";
-import { Navigation } from "@/components/Navigation/Navigation";
+import { Navigation } from "@/components/Navigation";
 import "./globals.css";
-import { Footer } from "@/components/Footer/Footer";
+import { Footer } from "@/components/Footer";
 
 import { AuthContextProvider } from "./context/AuthContext";
 import Head from "next/head";

@@ -7,7 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-import Logo from "../../public/logo.svg";
+import Logo from "../public/logo.svg";
 import { usePathname } from "next/navigation";
 import { UserAuth } from "@/app/context/AuthContext";
 

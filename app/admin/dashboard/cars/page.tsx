@@ -63,6 +63,7 @@ export default function Cars() {
     <main className="z-0">
       {uploadDialogOpened && (
         <FileDropDown
+          isMulti
           onChange={(value) => setNewImage(value)}
           urls={newImage || []}
           onUpload={uploadPhoto}

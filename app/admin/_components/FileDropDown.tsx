@@ -5,25 +5,27 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import { Close } from "@mui/icons-material";
+import { get } from "lodash";
 
 interface FileDropDownProps {
   urls: { preview: string }[];
   isError?: boolean;
   errorMessage?: string;
   onChange: (value: any) => void;
-  label?: string;
+
   onClose?: () => void;
   onUpload?: (e: any) => void;
   asDialog?: boolean;
+  isMulti?: boolean;
 }
 
 export const FileDropDown = ({
   urls,
   onChange,
-  label,
   onUpload,
   onClose,
   asDialog = false,
+  isMulti = false,
 }: FileDropDownProps) => {
   const [files, setFiles] = useState<any[]>([]);
 
@@ -40,9 +42,13 @@ export const FileDropDown = ({
           });
         });
 
-        onChange([...previousFiles, ...filesToAdd]);
-
-        return [...previousFiles, ...filesToAdd];
+        if (isMulti) {
+          onChange([...previousFiles, ...filesToAdd]);
+          return [...previousFiles, ...filesToAdd];
+        } else {
+          onChange([filesToAdd[0]]);
+          return [filesToAdd[0]];
+        }
       });
     }
   }, []);
@@ -83,7 +89,7 @@ export const FileDropDown = ({
       </div>
 
       <div
-        className={`grid grid-cols-4 gap-5 max-h-[200px] overflow-y-scroll pr-2 ${
+        className={`grid grid-cols-3 gap-5 max-h-[200px] overflow-y-auto pr-2 ${
           files.length !== 0 ? "mt-6" : ""
         }`}
       >
@@ -93,11 +99,11 @@ export const FileDropDown = ({
             className="relative rounded-md shadow-lg bg-white rounded-tr-md"
           >
             <Image
-              src={file.preview}
-              width={100}
-              height={100}
+              src={get(file, "preview", file)}
+              width={300}
+              height={200}
               alt=""
-              className="rounded-tr-md"
+              className="rounded-tr-md h-20"
             />
             <button
               type="button"
@@ -118,7 +124,7 @@ export const FileDropDown = ({
   return (
     <>
       {asDialog ? (
-        <div className="absolute w-[100vw] h-[100vh] bg-gray-950 bg-opacity-60 z-10 top-0 left-0 flex justify-center items-center">
+        <div className="absolute w-[100%] h-[100vh] bg-gray-950 bg-opacity-60 z-10 top-0 left-0 flex justify-center items-center">
           <div className=" max-w-2xl bg-gray-100 p-6 rounded-md">
             <div className="flex justify-between item-center mb-5">
               <div className="text-xl font-bold">Upload File</div>

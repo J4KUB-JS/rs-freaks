@@ -100,7 +100,22 @@ export default function Events() {
     e.preventDefault();
     await updateDoc(doc(db, "events", newItem.id), {
       ...newItem,
+      files: [],
     });
+
+    await Promise.all(
+      newItem.files.map((img: any) => {
+        if (!(typeof img === "string")) {
+          const imgRef = ref(imageDb, `eventImages/${img.path}`);
+          uploadBytes(imgRef, img).then(async () => {
+            const downloadURL = await getDownloadURL(imgRef);
+            await updateDoc(doc(db, `events/${newItem.id}`), {
+              files: arrayUnion(downloadURL),
+            });
+          });
+        }
+      })
+    );
 
     setIsDialogOpen(false);
 

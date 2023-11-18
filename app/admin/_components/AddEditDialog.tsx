@@ -22,8 +22,8 @@ export default function AddEditDialog({
   includeIsMain = false,
 }: AddEditDialogProps) {
   return (
-    <div className="absolute w-[100vw] h-[100vh] bg-gray-950 bg-opacity-60 z-10 top-0 left-0 flex justify-center items-center">
-      <div className=" max-w-2xl bg-gray-100 p-6 rounded-md">
+    <div className="absolute w-[100%] h-[100vh] bg-gray-950 bg-opacity-60 z-10 top-0 left-0 flex justify-center items-center">
+      <div className=" max-w-3xl bg-gray-100 p-6 rounded-md">
         <div className="flex justify-between item-center mb-5">
           <div className="text-xl font-bold">Add / Edit Event</div>
           <div className="btn btn-sm btn-circle" onClick={onClose}>

@@ -91,9 +91,26 @@ export default function Blog() {
 
   const editItem = async (e: any) => {
     e.preventDefault();
+    console.log(newItem);
     await updateDoc(doc(db, "blog", newItem.id), {
       ...newItem,
+      files: [],
     });
+
+    await Promise.all(
+      newItem.files.map((img: any) => {
+        if (!(typeof img === "string")) {
+          const imgRef = ref(imageDb, `blogImages/${img.path}`);
+          uploadBytes(imgRef, img).then(async () => {
+            const downloadURL = await getDownloadURL(imgRef);
+            await updateDoc(doc(db, `blog/${newItem.id}`), {
+              files: arrayUnion(downloadURL),
+            });
+          });
+        }
+      })
+    );
+
     setIsDialogOpen(false);
     setNewItem({
       id: "",

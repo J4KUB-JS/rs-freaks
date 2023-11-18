@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import {
   collection,
@@ -37,9 +36,9 @@ export default function Cars() {
   }, []);
 
   const uploadPhoto = async (e: any) => {
-    const fileId = uuid();
     const docRef = await addDoc(collection(db, "carsInClub"), {
       name: "",
+      files: [],
     });
 
     await Promise.all(

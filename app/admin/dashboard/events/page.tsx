@@ -1,7 +1,6 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
-import { v4 as uuid } from "uuid";
 import moment from "moment";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import {
@@ -45,7 +44,6 @@ export default function Events() {
   const addEvent = async (e: any) => {
     e.preventDefault();
     if (newItem.name !== "" && newItem.date !== "" && newItem.description !== "") {
-      const fileId = uuid();
       const docRef = await addDoc(collection(db, "events"), {
         name: newItem.name.trim(),
         date: newItem.date,

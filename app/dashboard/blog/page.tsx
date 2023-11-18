@@ -12,6 +12,7 @@ import {
   doc,
   updateDoc,
   arrayUnion,
+  Timestamp,
 } from "firebase/firestore";
 
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -45,6 +46,7 @@ export default function Blog() {
       const docRef = await addDoc(collection(db, "blog"), {
         name: newItem.name.trim(),
         description: newItem.description,
+        createdAt: new Timestamp(0, 0),
         files: [],
       });
 
@@ -168,7 +170,7 @@ export default function Blog() {
                 {items.map((item, id) => (
                   <tr key={id} className="">
                     <td>{item.name}</td>
-                    <td> {moment(item.date).format("DD/MM/YYYY HH:mm")}</td>
+                    <td> {moment(item.createdAt).format("DD/MM/YYYY")}</td>
                     <td>
                       <div className="flex gap-5">
                         <div

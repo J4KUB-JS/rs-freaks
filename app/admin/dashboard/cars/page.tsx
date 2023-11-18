@@ -1,27 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
-import { imageDb } from "../../../../lib/firebase/firebase";
-import { v4 as uuid } from "uuid";
 import Image from "next/image";
-import { FileDropDown } from "../../_components/FileDropDown";
-import { removeDuplicates } from "@/utils/utils";
+import { v4 as uuid } from "uuid";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import {
   collection,
   addDoc,
   query,
   onSnapshot,
-  deleteDoc,
   doc,
   updateDoc,
   arrayUnion,
 } from "firebase/firestore";
+
+import { imageDb } from "../../../../lib/firebase/firebase";
+import { FileDropDown } from "../../_components/FileDropDown";
 import { db } from "../../../../lib/firebase/firebase";
 
 export default function Cars() {
-  const imagesListRef = ref(imageDb, "carsInClub/");
-
   const [imageUrls, setImageUrls] = useState<{ files: any[] }[]>([{ files: [] }]);
   const [newImage, setNewImage] = useState<any[]>([]);
   const [uploadDialogOpened, setUploadDialogOpened] = useState(false);

@@ -1,11 +1,11 @@
+import { get } from "lodash";
 import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import Image from "next/image";
 
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CloseIcon from "@mui/icons-material/Close";
-import Image from "next/image";
 import { Close } from "@mui/icons-material";
-import { get } from "lodash";
 
 interface FileDropDownProps {
   urls: { preview: string }[];

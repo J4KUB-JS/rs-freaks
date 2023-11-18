@@ -1,10 +1,11 @@
+import Image from "next/image";
+import { doc, getDoc } from "firebase/firestore";
+
 import { TempPost } from "@/app/constants";
 import { PostType } from "@/app/types";
-import { db } from "@/lib/firebase/firebase";
 import { KeyboardArrowLeft } from "@mui/icons-material";
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
-import Image from "next/image";
-import { useRouter } from "next/router";
+
+import { db } from "@/lib/firebase/firebase";
 
 async function getData(id: string): Promise<PostType> {
   const q = doc(db, `blog`, id);

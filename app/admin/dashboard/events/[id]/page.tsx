@@ -1,11 +1,11 @@
-import { TempEvent, TempPost } from "@/app/constants";
-import { EventType, PostType } from "@/app/types";
-import { db } from "@/lib/firebase/firebase";
-import { KeyboardArrowLeft } from "@mui/icons-material";
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { Suspense } from "react";
+import { doc, getDoc } from "firebase/firestore";
+
+import { KeyboardArrowLeft } from "@mui/icons-material";
+
+import { TempEvent } from "@/app/constants";
+import { EventType } from "@/app/types";
+import { db } from "@/lib/firebase/firebase";
 
 async function getData(id: string): Promise<EventType> {
   const q = doc(db, `events`, id);

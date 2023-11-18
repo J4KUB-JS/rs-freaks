@@ -1,9 +1,9 @@
 import { collection, query, getDocs, where } from "firebase/firestore";
-import { db } from "../../lib/firebase/firebase";
 import moment from "moment";
 import Image from "next/image";
 
 import events from "../../public/img/events.png";
+import { db } from "../../lib/firebase/firebase";
 
 interface Events {
   isMain: boolean;

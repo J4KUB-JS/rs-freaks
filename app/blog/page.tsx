@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { CardItem } from "./components/CardItem";
 import { NewCardItem } from "./components/NewCardItem";
 
 import blog1 from "../../public/img/blog-1.png";

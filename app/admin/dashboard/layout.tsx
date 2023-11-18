@@ -1,9 +1,11 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
+
 import { UserAuth } from "@/app/context/AuthContext";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {

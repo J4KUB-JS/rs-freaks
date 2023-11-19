@@ -23,6 +23,7 @@ async function getData(): Promise<PostType[]> {
       name: doc.data().name,
       files: doc.data().files,
       description: doc.data().description,
+      subtitle: doc.data().subtitle,
       id: doc.id,
     };
   });
@@ -55,26 +56,24 @@ export default async function Blog() {
               {get(posts[0], "name", "")}
             </h1>
             <div className="flex gap-6 flex-col items-start justify-between xl:text-lg pr-5 md:w-[50%]">
-              <p>
-                “I have driven few tuned sports cars but this one is something I have
-                never experienced”
-              </p>
+              <p>{get(posts[0], "subtitle", "")}</p>
               <button className="bg-gray-900 hover:bg-red-500 text-white font-Inter text-xl px-6 py-2 font-light uppercase tracking-widest">
                 Read more
               </button>
             </div>
           </div>
         </div>
-        <div className="px-6 py-7">
+        <div className="px-6">
           <h3 className="text-2xl font-semibold mb-5 uppercase">Latest posts</h3>
-          <div className="divide-y divide-gray-900">
-            {posts.map((item) => {
+          <div className="divide-y divide-gray-900 border-t border-b border-gray-900 ">
+            {posts.map((item, index) => {
+              if (index === 0 || index > 6) return null;
               return (
                 <NewCardItem
                   key={item.id}
                   imgSrc={item.files[0]}
                   title={item.name}
-                  body={"Will hydrogen-fueled cars ever catch up to EVs?"}
+                  body={item.subtitle}
                 />
               );
             })}

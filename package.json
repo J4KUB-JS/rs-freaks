@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.15",
     "@mui/material": "^5.14.15",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "encoding": "^0.1.13",
     "firebase": "^10.5.2",
     "lodash": "^4.17.21",

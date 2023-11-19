@@ -20,16 +20,13 @@ import { Edit, Preview } from "@mui/icons-material";
 
 import { PostType } from "@/app/types";
 import { db, imageDb } from "../../../lib/firebase/firebase";
-import AddEditDialog from "../../../components/AddEditDialog";
+
+import PostDialog from "@/components/PostDialog";
+import { TempPost } from "@/app/constants";
 
 export default function Blog() {
   const [items, setItems] = useState<any[]>([]);
-  const [newItem, setNewItem] = useState<PostType>({
-    id: "",
-    name: "",
-    description: "",
-    files: [],
-  });
+  const [newItem, setNewItem] = useState<PostType>(TempPost);
 
   const setNewItemHandler = (key: string, value: any) => {
     setNewItem((prevState) => ({
@@ -39,13 +36,14 @@ export default function Blog() {
   };
 
   const [isDialogOpened, setIsDialogOpen] = useState(false);
-
+  console.log(newItem);
   const addEvent = async (e: any) => {
     e.preventDefault();
-    if (newItem.name !== "" && newItem.description !== "") {
+    if (newItem.name !== "" && newItem.description !== "" && newItem.subtitle !== "") {
       const docRef = await addDoc(collection(db, "blog"), {
         name: newItem.name.trim(),
         description: newItem.description,
+        subtitle: newItem.subtitle,
         createdAt: new Timestamp(0, 0),
         files: [],
       });
@@ -62,12 +60,7 @@ export default function Blog() {
         })
       );
 
-      setNewItem({
-        id: "",
-        name: "",
-        description: "",
-        files: [],
-      });
+      setNewItem(TempPost);
 
       setIsDialogOpen(false);
     }
@@ -113,12 +106,7 @@ export default function Blog() {
     );
 
     setIsDialogOpen(false);
-    setNewItem({
-      id: "",
-      name: "",
-      description: "",
-      files: [],
-    });
+    setNewItem(TempPost);
   };
 
   const openEditDialog = (data: any) => {
@@ -127,12 +115,7 @@ export default function Blog() {
   };
 
   const closeDialog = () => {
-    setNewItem({
-      id: "",
-      name: "",
-      description: "",
-      files: [],
-    });
+    setNewItem(TempPost);
     setIsDialogOpen(false);
   };
 
@@ -140,7 +123,7 @@ export default function Blog() {
     <main className="lg:max-w-[1200px] lg:m-auto tracking-wide z-0">
       <Suspense fallback={<div>Loading data...</div>}>
         {isDialogOpened && (
-          <AddEditDialog
+          <PostDialog
             item={newItem}
             onChange={setNewItemHandler}
             onConfirm={newItem.id ? editItem : addEvent}

@@ -19,18 +19,12 @@ import { Edit, Preview } from "@mui/icons-material";
 
 import { EventType } from "@/app/types";
 import { db, imageDb } from "../../../lib/firebase/firebase";
-import AddEditDialog from "../../../components/AddEditDialog";
+import EventDialog from "../../../components/EventDialog";
+import { TempEvent } from "@/app/constants";
 
 export default function Events() {
   const [items, setItems] = useState<any[]>([]);
-  const [newItem, setNewItem] = useState<EventType>({
-    id: "",
-    date: "",
-    name: "",
-    description: "",
-    isMain: false,
-    files: null,
-  });
+  const [newItem, setNewItem] = useState<EventType>(TempEvent);
 
   const setNewItemHandler = (key: string, value: any) => {
     setNewItem((prevState) => ({
@@ -64,14 +58,7 @@ export default function Events() {
         })
       );
 
-      setNewItem({
-        id: "",
-        name: "",
-        description: "",
-        date: "",
-        isMain: false,
-        files: null,
-      });
+      setNewItem(TempEvent);
 
       setIsDialogOpen(false);
     }
@@ -117,14 +104,7 @@ export default function Events() {
 
     setIsDialogOpen(false);
 
-    setNewItem({
-      id: "",
-      name: "",
-      description: "",
-      date: "",
-      isMain: false,
-      files: null,
-    });
+    setNewItem(TempEvent);
   };
 
   const openEditDialog = (data: any) => {
@@ -133,14 +113,7 @@ export default function Events() {
   };
 
   const closeDialog = () => {
-    setNewItem({
-      id: "",
-      name: "",
-      description: "",
-      date: "",
-      isMain: false,
-      files: null,
-    });
+    setNewItem(TempEvent);
     setIsDialogOpen(false);
   };
 
@@ -148,9 +121,7 @@ export default function Events() {
     <main className="lg:max-w-[1200px] lg:m-auto tracking-wide z-0">
       <Suspense fallback={<div>Loading data...</div>}>
         {isDialogOpened && (
-          <AddEditDialog
-            includeDate
-            includeIsMain
+          <EventDialog
             item={newItem}
             onChange={setNewItemHandler}
             onConfirm={newItem.id ? editItem : addEvent}

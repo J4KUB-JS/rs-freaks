@@ -11,6 +11,7 @@ export interface PostType {
   id: string;
   name: string;
   description: string;
+  subtitle: string;
   files: any;
   createdAt?: string;
 }

@@ -13,5 +13,6 @@ export const TempPost: PostType = {
   id: "",
   name: "",
   description: "",
+  subtitle: "",
   files: [],
 };

@@ -15,6 +15,7 @@ async function getData(id: string): Promise<PostType> {
     id: result.id,
     name: result.name,
     description: result.description,
+    subtitle: result.subtitle,
     files: result.files || [],
   };
 }
@@ -35,6 +36,7 @@ export default async function Blog({ params }: { params: { id: string } }) {
         </div>
       </div>
       <div>{data.description}</div>
+      <div>{data.subtitle}</div>
       <div className=" mt-10">
         {data.files.map((img: any, index: number) => {
           return (

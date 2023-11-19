@@ -31,7 +31,7 @@ async function getData(): Promise<PostType[]> {
 
 export default async function Blog() {
   const posts = await getData();
-  console.log(posts);
+
   return (
     <main className="lg:max-w-[1200px] lg:m-auto tracking-wide z-0">
       <div className="my-10 lg:my-20 uppercase flex justify-center font-Inter">

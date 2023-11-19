@@ -36,7 +36,7 @@ export default function Blog() {
   };
 
   const [isDialogOpened, setIsDialogOpen] = useState(false);
-  console.log(newItem);
+
   const addEvent = async (e: any) => {
     e.preventDefault();
     if (newItem.name !== "" && newItem.description !== "" && newItem.subtitle !== "") {
@@ -85,7 +85,7 @@ export default function Blog() {
 
   const editItem = async (e: any) => {
     e.preventDefault();
-    console.log(newItem);
+
     await updateDoc(doc(db, "blog", newItem.id), {
       ...newItem,
       files: [],

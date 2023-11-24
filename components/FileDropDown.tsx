@@ -34,6 +34,7 @@ export const FileDropDown = ({
   }, [urls]);
 
   const onDrop = useCallback((filesDropped: any) => {
+    console.log(filesDropped);
     if (filesDropped?.length) {
       setFiles((previousFiles) => {
         const filesToAdd: any[] = filesDropped.map((file: any) => {

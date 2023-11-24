@@ -6,7 +6,7 @@ import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 
-import { UserAuth } from "@/app/context/AuthContext";
+import { UserAuth } from "@/context/AuthContext";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

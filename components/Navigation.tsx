@@ -9,7 +9,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 import Logo from "../public/logo.svg";
 import { usePathname } from "next/navigation";
-import { UserAuth } from "@/app/context/AuthContext";
+import { UserAuth } from "@/context/AuthContext";
 
 export const Navigation = () => {
   const pathname = usePathname();

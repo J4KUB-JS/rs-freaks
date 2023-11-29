@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { convertToRaw } from "draft-js";
 import { EditorState, ContentState } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
+// import { Editor } from "react-draft-wysiwyg";
+import dynamic from "next/dynamic";
+
+const Editor = dynamic(() => import("react-draft-wysiwyg").then((mod) => mod.Editor), {
+  ssr: false,
+});
+
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
 

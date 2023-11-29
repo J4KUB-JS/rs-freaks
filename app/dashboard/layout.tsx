@@ -11,12 +11,12 @@ import { UserAuth } from "@/context/AuthContext";
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  const { user } = UserAuth();
+  const { user, isLoadingUser } = UserAuth();
 
   return (
-    <div className="px-32 grid grid-cols-5 gap-10">
-      {user && (
-        <>
+    <>
+      {user ? (
+        <div className="px-32 grid grid-cols-5 gap-10">
           <div className="col-span-1 relative h-full">
             <ul className="sticky top-28 menu w-full rounded-xl bg-gray-200">
               <li
@@ -58,8 +58,24 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </ul>
           </div>
           <div className=" col-span-4 bg-gray-200 rounded-box px-8 py-6">{children}</div>
-        </>
+        </div>
+      ) : (
+        <div className="w-100% text-center h-[60vh] flex justify-center items-center">
+          {isLoadingUser ? (
+            <div>
+              <span className="loading loading-dots loading-lg"></span>
+              <div>Loading data</div>
+            </div>
+          ) : (
+            <>
+              Admin page access denied. Go to
+              <a href="/" className="font-bold underline pl-1">
+                home page
+              </a>
+            </>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 }

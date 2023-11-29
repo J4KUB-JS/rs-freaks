@@ -3,6 +3,8 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { EventType } from "@/app/types";
 import { FileDropDown } from "./FileDropDown";
+import { DateInput } from "./DateInput";
+import { TextEditor } from "./TextEditor";
 
 interface EventDialogProps {
   item: EventType;
@@ -19,15 +21,15 @@ export default function EventDialog({
 }: EventDialogProps) {
   return (
     <div className="absolute w-[100%] h-[100vh] bg-gray-950 bg-opacity-60 z-10 top-0 left-0 flex justify-center items-center">
-      <div className=" max-w-3xl bg-gray-100 p-6 rounded-md">
+      <div className=" max-w-3xl bg-gray-100 p-6 rounded-md h-[750px]">
         <div className="flex justify-between item-center mb-5">
-          <div className="text-xl font-bold">Add / Edit Event</div>
+          <div className="text-xl font-bold">{item.id ? "Edit" : "Add"} Event</div>
           <div className="btn btn-sm btn-circle" onClick={onClose}>
             <Close />
           </div>
         </div>
-        <form className="grid grid-cols-2 gap-4">
-          <div>
+        <div className="h-[650px]">
+          <form className="grid grid-cols-2 gap-x-4 overflow-auto h-[550px] px-2 pb-5">
             <div className="form-control w-full">
               <label className="label">
                 <span className="label-text">Event Name</span>
@@ -37,20 +39,43 @@ export default function EventDialog({
                 className="input input-bordered w-full"
                 value={item.name}
                 onChange={(e) => onChange("name", e.target.value)}
-                placeholder="meat up at..."
+                placeholder="Meat up name"
               />
             </div>
 
-            <div className="form-control w-full">
+            <div className="form-control w-[full] flex flex-row gap-2">
+              <div className="w-[70%]">
+                <label className="label">
+                  <span className="label-text">Date</span>
+                </label>
+                <DateInput
+                  value={item.date}
+                  onChange={(value) => onChange("date", value)}
+                />
+              </div>
+
+              <div className="w-[30%]">
+                <label className="label">
+                  <span className="label-text">Hour</span>
+                </label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full"
+                  value={item.hour}
+                  onChange={(e) => onChange("hour", e.target.value)}
+                  placeholder="15:00"
+                />
+              </div>
+            </div>
+
+            <div className="form-control w-full col-span-2">
               <label className="label">
-                <span className="label-text">Date</span>
+                <span className="label-text">Description</span>
               </label>
-              <input
-                type="text"
-                className="input input-bordered w-full"
-                value={item.date}
-                onChange={(e) => onChange("date", e.target.value)}
-                placeholder="10 11 2023 15:30"
+              <TextEditor
+                value={item.description}
+                onChange={(value) => onChange("description", value)}
+                placeholder="what will we do?"
               />
             </div>
 
@@ -63,10 +88,12 @@ export default function EventDialog({
                 urls={item.files || []}
               />
             </div>
+          </form>
 
-            <div className="form-control w-full">
+          <div className="flex justify-end items-center col-span-2 mt-10 gap-10">
+            <div className="form-control">
               <label className="label">
-                <span className="label-text">Is Main Event</span>
+                <span className="label-text">Save as Main</span>
               </label>
               <input
                 type="checkbox"
@@ -75,32 +102,16 @@ export default function EventDialog({
                 onChange={(e) => onChange("isMain", !item.isMain)}
               />
             </div>
-          </div>
-          <div>
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text">Description</span>
-              </label>
-              <textarea
-                value={item.description}
-                onChange={(e) => onChange("description", e.target.value)}
-                className="textarea textarea-bordered w-full min-h-[360px]"
-                placeholder="what will we do?"
-              ></textarea>
-            </div>
-          </div>
-
-          <div className="flex justify-end col-span-2 mt-10">
             <button
               onClick={onConfirm}
               className="btn max-w-xs bg-gray-900 text-gray-50"
               type="submit"
             >
               <AddIcon />
-              Add / Edit Event
+              Save
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

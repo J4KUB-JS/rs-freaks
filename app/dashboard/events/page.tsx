@@ -142,9 +142,8 @@ export default function Events() {
             <table className="table">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th className="w-[100%]">Description</th>
-                  <th>Date</th>
+                  <th className="w-[70%]">Name</th>
+                  <th className="w-[25%]">Date</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -152,8 +151,10 @@ export default function Events() {
                 {items.map((item, id) => (
                   <tr key={id} className="">
                     <td>{item.name}</td>
-                    <td>{item.description}</td>
-                    <td> {moment(item.date).format("DD/MM/YYYY HH:mm")}</td>
+                    <td>
+                      {moment(item.date).format("DD.MM.YYYY")} at{" "}
+                      {moment(item.hour).format("HH:mm")}
+                    </td>
                     <td>
                       <div className="flex gap-5">
                         <div

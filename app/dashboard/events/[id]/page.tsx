@@ -15,6 +15,7 @@ async function getData(id: string): Promise<EventType> {
     id: result.id,
     name: result.name,
     date: result.date,
+    hour: result.hour,
     isMain: result.isMain,
     description: result.description,
     files: result.files || [],

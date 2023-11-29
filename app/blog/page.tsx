@@ -43,23 +43,27 @@ export default async function Blog() {
 
       <div className="md:grid lg:grid-cols-3 md:gap-x-7 md:grid-cols-2 ">
         <div className="md:col-span-2 px-6">
-          <Image
-            alt=""
-            src={get(posts[0], "files[0]", "")}
-            className="w-full overflow-hidden"
-            width={100}
-            height={100}
-          />
-
+          <div className="overflow-hidden h-96 w-full relative">
+            <Image
+              alt=""
+              src={get(posts[0], "files[0]", "")}
+              className="w-full overflow-hidden"
+              fill
+              style={{ objectFit: "cover" }}
+              quality={100}
+            />
+          </div>
           <div className="flex justify-between py-6 md:flex-row flex-col gap-4">
             <h1 className="xl:text-6xl font-bold md:text-5xl text-4xl font-Inter md:w-[50%]">
               {get(posts[0], "name", "")}
             </h1>
             <div className="flex gap-6 flex-col items-start justify-between xl:text-lg pr-5 md:w-[50%]">
               <p>{get(posts[0], "subtitle", "")}</p>
-              <button className="bg-gray-900 hover:bg-red-500 text-white font-Inter text-xl px-6 py-2 font-light uppercase tracking-widest">
-                Read more
-              </button>
+              <a href={"/blog/" + posts[0].id}>
+                <button className="bg-gray-900 hover:bg-red-500 text-white font-Inter text-xl px-6 py-2 font-light uppercase tracking-widest">
+                  Read more
+                </button>
+              </a>
             </div>
           </div>
         </div>
@@ -69,12 +73,9 @@ export default async function Blog() {
             {posts.map((item, index) => {
               if (index === 0 || index > 6) return null;
               return (
-                <NewCardItem
-                  key={item.id}
-                  imgSrc={item.files[0]}
-                  title={item.name}
-                  body={item.subtitle}
-                />
+                <a href={"/blog/" + item.id} key={item.id}>
+                  <NewCardItem item={item} />
+                </a>
               );
             })}
           </div>

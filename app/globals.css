@@ -3,3 +3,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #cdcdcd;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(93, 93, 93);
+  border-radius: 8px;
+}
+
+* {
+  scrollbar-color: rgb(206, 206, 206) #f1f1f1;
+  scrollbar-width: thin;
+}
+
+.react-date-picker__wrapper {
+  background-color: white;
+  border-radius: 0.5rem;
+  border-color: rgb(207, 207, 207) !important;
+  height: 48px;
+  width: 100%;
+  padding: 0px 10px;
+}
+.react-date-picker {
+  width: 100%;
+}
+
+.react-date-picker__calendar {
+  z-index: 10 !important;
+}

@@ -3,6 +3,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { PostType } from "@/app/types";
 import { FileDropDown } from "./FileDropDown";
+import { TextEditor } from "./TextEditor";
 
 interface PostDialogProps {
   item: PostType;
@@ -19,15 +20,16 @@ export default function PostDialog({
 }: PostDialogProps) {
   return (
     <div className="absolute w-[100%] h-[100vh] bg-gray-950 bg-opacity-60 z-10 top-0 left-0 flex justify-center items-center">
-      <div className=" max-w-3xl bg-gray-100 p-6 rounded-md">
+      <div className="max-w-3xl bg-gray-100 p-6 rounded-md h-[750px]">
         <div className="flex justify-between item-center mb-5">
-          <div className="text-xl font-bold">Add / Edit Event</div>
+          <div className="text-xl font-bold">{item.id ? "Edit" : "Add"} Blog Post</div>
           <div className="btn btn-sm btn-circle" onClick={onClose}>
             <Close />
           </div>
         </div>
-        <form className="grid grid-cols-2 gap-4">
-          <div>
+
+        <div className="h-[650px]">
+          <form className="grid grid-cols-2 gap-4 overflow-auto h-[550px] px-2 pb-5">
             <div className="form-control w-full">
               <label className="label">
                 <span className="label-text">Title</span>
@@ -45,15 +47,26 @@ export default function PostDialog({
               <label className="label">
                 <span className="label-text">Sub Title</span>
               </label>
-              <textarea
+              <input
                 value={item.subtitle}
                 onChange={(e) => onChange("subtitle", e.target.value)}
-                className="textarea textarea-bordered w-full min-h-[150px]"
-                placeholder="what will we do?"
-              ></textarea>
+                className="input input-bordered w-full"
+                placeholder="catchy phrase"
+              />
             </div>
 
-            <div className="form-control w-full">
+            <div className="form-control w-full col-span-2">
+              <label className="label">
+                <span className="label-text">Description</span>
+              </label>
+              <TextEditor
+                value={item.description}
+                onChange={(value) => onChange("description", value)}
+                placeholder="what will we do?"
+              />
+            </div>
+
+            <div className="form-control w-full col-span-1">
               <label className="label">
                 <span className="label-text">Files</span>
               </label>
@@ -62,32 +75,18 @@ export default function PostDialog({
                 urls={item.files || []}
               />
             </div>
-          </div>
-          <div>
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text">Description</span>
-              </label>
-              <textarea
-                value={item.description}
-                onChange={(e) => onChange("description", e.target.value)}
-                className="textarea textarea-bordered w-full min-h-[400px]"
-                placeholder="what will we do?"
-              ></textarea>
-            </div>
-          </div>
-
-          <div className="flex justify-end col-span-2 mt-10">
+          </form>
+          <div className="flex justify-end mt-10">
             <button
               onClick={onConfirm}
               className="btn max-w-xs bg-gray-900 text-gray-50"
               type="submit"
             >
               <AddIcon />
-              Add / Edit Event
+              Save
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

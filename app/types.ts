@@ -1,6 +1,7 @@
 export interface EventType {
   id: string;
   date: string;
+  hour: string;
   name: string;
   description: string;
   isMain: boolean;

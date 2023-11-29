@@ -12,16 +12,19 @@ interface AuthContextType {
   user: User | null;
   googleSignIn: () => void;
   logOut: () => void;
+  isLoadingUser: boolean;
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
   googleSignIn: () => {},
   logOut: () => {},
+  isLoadingUser: true,
 });
 
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoadingUser, setIsLoadingUser] = useState<boolean>(true);
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
@@ -33,14 +36,16 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
+    setIsLoadingUser(true);
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setIsLoadingUser(false);
     });
     return () => unsubscribe();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, googleSignIn, logOut }}>
+    <AuthContext.Provider value={{ user, googleSignIn, logOut, isLoadingUser }}>
       {children}
     </AuthContext.Provider>
   );

@@ -44,7 +44,7 @@ export default function Blog() {
         name: newItem.name.trim(),
         description: newItem.description,
         subtitle: newItem.subtitle,
-        createdAt: new Timestamp(0, 0),
+        createdAt: moment().format("YYYY MM DD"),
         files: [],
       });
 

@@ -14,8 +14,8 @@ interface Events {
 async function getData(): Promise<Events[]> {
   const q = query(
     collection(db, "events"),
-    where("date", ">=", `${moment().format("MM")}/00/2023`),
-    where("date", "<=", `${moment().format("MM")}/32/2023`)
+    where("date", ">=", `${moment().format("YYYY")} ${moment().format("MM")} 00`),
+    where("date", "<=", `${moment().format("YYYY")} ${moment().format("MM")} 32`)
   );
   const results = await getDocs(q);
   return results.docs.map((doc) => {

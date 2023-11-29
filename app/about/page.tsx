@@ -11,8 +11,13 @@ export default function About() {
     <main className="lg:max-w-[1300px] lg:m-auto tracking-wide z-0">
       <div className="grid grid-cols-2 gap-10 lg:gap-24 px-4 md:px-16 lg:mt-20 mt-10 mb-16 item">
         <div className="col-span-2 lg:col-span-1">
-          <Image src={about1} alt="" className="hidden lg:block w-auto h-[700px]" />
-          <Image src={about3} alt="" className=" lg:hidden" />
+          <Image
+            quality={100}
+            src={about1}
+            alt=""
+            className="hidden lg:block w-auto h-[700px]"
+          />
+          <Image quality={100} src={about3} alt="" className=" lg:hidden" />
         </div>
         <div className="col-span-2 lg:col-span-1 flex flex-col justify-between">
           <div>
@@ -45,11 +50,16 @@ export default function About() {
       </div>
 
       <div className="px-4 md:px-16">
-        <Image src={about4} alt="" className="md:hidden row-span-2 w-full" />
+        <Image
+          quality={100}
+          src={about4}
+          alt=""
+          className="md:hidden row-span-2 w-full"
+        />
       </div>
       <div className="md:grid grid-cols-3 hidden gap-4 px-4 md:px-16 lg:hidden">
-        <Image src={about5} alt="" className=" col-span-2 h-[150px]" />
-        <Image src={about4} alt="" className="row-span-2 h-[150px]" />
+        <Image quality={100} src={about5} alt="" className=" col-span-2 h-[150px]" />
+        <Image quality={100} src={about4} alt="" className="row-span-2 h-[150px]" />
       </div>
       <div className="grid grid-cols-2 lg:gap-16 mt-16 px-4 md:px-16 items-center">
         <div className="col-span-2 lg:col-span-1">
@@ -76,6 +86,7 @@ export default function About() {
         </div>
         <div className="col-span-2 lg:col-span-1 justify-self-end">
           <Image
+            quality={100}
             src={about2}
             alt=""
             height={800}

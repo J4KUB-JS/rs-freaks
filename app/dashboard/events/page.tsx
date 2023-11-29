@@ -18,8 +18,8 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Edit, Preview } from "@mui/icons-material";
 
 import { EventType } from "@/app/types";
-import { db, imageDb } from "../../../lib/firebase/firebase";
-import EventDialog from "../../../components/EventDialog";
+import { db, imageDb } from "@/lib/firebase/firebase";
+import EventDialog from "@/components/EventDialog";
 import { TempEvent } from "@/app/constants";
 
 export default function Events() {

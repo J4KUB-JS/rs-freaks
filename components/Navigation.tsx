@@ -1,15 +1,15 @@
 "use client";
 import Image from "next/image";
 import React from "react";
+import { usePathname } from "next/navigation";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-import Logo from "../public/logo.svg";
-import { usePathname } from "next/navigation";
 import { UserAuth } from "@/context/AuthContext";
+import Logo from "../public/logo.svg";
 
 export const Navigation = () => {
   const pathname = usePathname();
@@ -91,6 +91,7 @@ export const Navigation = () => {
                   {user.displayName}
 
                   <Image
+                    quality={100}
                     src={user.photoURL || ""}
                     height={40}
                     width={40}
@@ -143,6 +144,7 @@ export const Navigation = () => {
                   >
                     {user.displayName}
                     <Image
+                      quality={100}
                       src={user.photoURL || ""}
                       height={40}
                       width={40}

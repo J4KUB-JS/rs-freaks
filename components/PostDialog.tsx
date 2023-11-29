@@ -76,7 +76,18 @@ export default function PostDialog({
               />
             </div>
           </form>
-          <div className="flex justify-end mt-10">
+          <div className="flex justify-end items-center col-span-2 mt-10 gap-10">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Highlight</span>
+              </label>
+              <input
+                type="checkbox"
+                checked={item.highlight}
+                className="toggle input input-bordered"
+                onChange={(e) => onChange("highlight", !item.highlight)}
+              />
+            </div>
             <button
               onClick={onConfirm}
               className="btn max-w-xs bg-gray-900 text-gray-50"

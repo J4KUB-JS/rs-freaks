@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import moment from "moment";
-import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import {
   collection,
   addDoc,
@@ -12,15 +12,13 @@ import {
   doc,
   updateDoc,
   arrayUnion,
-  Timestamp,
 } from "firebase/firestore";
 
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Edit, Preview } from "@mui/icons-material";
 
 import { PostType } from "@/app/types";
-import { db, imageDb } from "../../../lib/firebase/firebase";
-
+import { db, imageDb } from "@/lib/firebase/firebase";
 import PostDialog from "@/components/PostDialog";
 import { TempPost } from "@/app/constants";
 

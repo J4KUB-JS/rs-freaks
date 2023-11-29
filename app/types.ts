@@ -15,4 +15,5 @@ export interface PostType {
   subtitle: string;
   files: any;
   createdAt?: string;
+  highlight: boolean;
 }

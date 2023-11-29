@@ -3,7 +3,7 @@ import moment from "moment";
 import Image from "next/image";
 
 import events from "../../public/img/events.png";
-import { db } from "../../lib/firebase/firebase";
+import { db } from "@/lib/firebase/firebase";
 
 interface Events {
   isMain: boolean;
@@ -88,7 +88,12 @@ export default async function Events() {
           </ul>
         </div>
         <div className="lg:row-span-2 justify-self-end">
-          <Image src={events} alt="" className="hidden lg:block  w-auto h-[700px]" />
+          <Image
+            quality={100}
+            src={events}
+            alt=""
+            className="hidden lg:block  w-auto h-[700px]"
+          />
           <div className="hidden lg:block font-Inter uppercase text-5xl font-bold text-gray-200 lg:text-6xl mt-5">
             More power
           </div>

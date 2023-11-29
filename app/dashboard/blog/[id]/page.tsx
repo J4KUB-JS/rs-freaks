@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { doc, getDoc } from "firebase/firestore";
 
-import { TempPost } from "@/app/constants";
-import { PostType } from "@/app/types";
 import { KeyboardArrowLeft } from "@mui/icons-material";
 
+import { TempPost } from "@/app/constants";
+import { PostType } from "@/app/types";
 import { db } from "@/lib/firebase/firebase";
 
 async function getData(id: string): Promise<PostType> {
@@ -16,6 +16,7 @@ async function getData(id: string): Promise<PostType> {
     name: result.name,
     description: result.description,
     subtitle: result.subtitle,
+    highlight: result.highlight,
     files: result.files || [],
   };
 }
@@ -41,6 +42,7 @@ export default async function Blog({ params }: { params: { id: string } }) {
         {data.files.map((img: any, index: number) => {
           return (
             <Image
+              quality={100}
               src={img}
               key={index}
               width={300}

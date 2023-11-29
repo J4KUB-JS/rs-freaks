@@ -13,8 +13,8 @@ import {
   arrayUnion,
 } from "firebase/firestore";
 
-import { imageDb } from "../../../lib/firebase/firebase";
-import { db } from "../../../lib/firebase/firebase";
+import { imageDb } from "@/lib/firebase/firebase";
+import { db } from "@/lib/firebase/firebase";
 import { FileDropDown } from "@/components/FileDropDown";
 
 export default function Cars() {
@@ -81,7 +81,16 @@ export default function Cars() {
         {imageUrls.map((img, index) => {
           if (img.files !== undefined) {
             return img.files.map((imgURL) => {
-              return <Image src={imgURL} key={index} width={200} height={200} alt="" />;
+              return (
+                <Image
+                  quality={100}
+                  src={imgURL}
+                  key={index}
+                  width={200}
+                  height={200}
+                  alt=""
+                />
+              );
             });
           }
         })}

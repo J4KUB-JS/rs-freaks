@@ -1,6 +1,7 @@
 import { collection, query, getDocs } from "firebase/firestore";
-import { db } from "../../lib/firebase/firebase";
 import Image from "next/image";
+
+import { db } from "@/lib/firebase/firebase";
 
 async function getData() {
   const q = query(collection(db, "carsInClub"));
@@ -37,6 +38,7 @@ export default async function Cars() {
             return img.files.map((imgURL: string) => {
               return (
                 <Image
+                  quality={100}
                   src={imgURL}
                   key={index}
                   width={300}

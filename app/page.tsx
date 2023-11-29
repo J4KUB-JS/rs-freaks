@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import gridImg1 from "../public/img/home-grid-1.png";
 import gridImg2 from "../public/img/home-grid-2.png";
 import gridImg3 from "../public/img/home-grid-3.png";
@@ -8,8 +9,6 @@ import homeEvents from "../public/img/home-events.png";
 import homeEvents2 from "../public/img/home-events-2.png";
 
 export default function Home() {
-
-
   return (
     <main className="lg:max-w-[1300px] lg:m-auto tracking-wide z-0">
       <div className="uppercase text-center md:text-left md:px-16 py-10 relative tracking-widest">
@@ -32,16 +31,23 @@ export default function Home() {
       </div>
       <div className="grid grid-cols-3 grid-rows-2 gap-4 px-4">
         <Image
+          quality={100}
           src={gridImg1}
           alt=""
           className="col-start-1 col-end-4 md:col-end-3 h-full"
         />
         <Image
+          quality={100}
           src={gridImg2}
           alt=""
           className="col-start-1 col-end-4 md:col-end-3 row-start-2 row-end-3 h-full"
         />
-        <Image src={gridImg3} alt="" className="hidden md:block row-span-2 h-full" />
+        <Image
+          quality={100}
+          src={gridImg3}
+          alt=""
+          className="hidden md:block row-span-2 h-full"
+        />
       </div>
       <div className="grid grid-cols-2 gap-16 lg:gap-24 mt-16 px-4 md:px-16 items-end">
         <div className="col-span-2 lg:col-span-1">
@@ -65,7 +71,7 @@ export default function Home() {
           <div className="hidden lg:block font-Inter uppercase text-5xl font-bold text-gray-200 lg:text-4xl mb-5">
             Smoke the tires
           </div>
-          <Image src={homeAbout} alt="" className="w-[500px] h-auto" />
+          <Image quality={100} src={homeAbout} alt="" className="w-[500px] h-auto" />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-16 lg:gap-24 px-4 md:px-16 lg:mt-20 items-center">
@@ -74,7 +80,12 @@ export default function Home() {
             More power
           </div>
 
-          <Image src={homeCars} alt="" className="hidden lg:block  w-auto h-[500px]" />
+          <Image
+            quality={100}
+            src={homeCars}
+            alt=""
+            className="hidden lg:block  w-auto h-[500px]"
+          />
         </div>
         <div className="col-span-2 lg:col-span-1">
           <div className="text-3xl uppercase font-extrabold font-Inter">what we have</div>
@@ -112,8 +123,13 @@ export default function Home() {
           <div className="hidden lg:block font-Inter uppercase text-5xl font-bold text-gray-200 lg:text-5xl mb-5">
             Let&apos;s goooo!
           </div>
-          <Image src={homeEvents} alt="" className="hidden lg:block w-auto h-[500px]" />
-          <Image src={homeEvents2} alt="" className="lg:hidden" />
+          <Image
+            quality={100}
+            src={homeEvents}
+            alt=""
+            className="hidden lg:block w-auto h-[500px]"
+          />
+          <Image quality={100} src={homeEvents2} alt="" className="lg:hidden" />
         </div>
       </div>
     </main>

@@ -34,7 +34,6 @@ export const FileDropDown = ({
   }, [urls]);
 
   const onDrop = useCallback((filesDropped: any) => {
-    console.log(filesDropped);
     if (filesDropped?.length) {
       setFiles((previousFiles) => {
         const filesToAdd: any[] = filesDropped.map((file: any) => {
@@ -100,6 +99,7 @@ export const FileDropDown = ({
             className="relative rounded-md shadow-lg bg-white rounded-tr-md"
           >
             <Image
+              quality={100}
               src={get(file, "preview", file)}
               width={300}
               height={200}

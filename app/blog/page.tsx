@@ -1,21 +1,17 @@
 import Image from "next/image";
-import { NewCardItem } from "./components/NewCardItem";
-
-import blog1 from "../../public/img/blog-1.png";
-import blog2 from "../../public/img/blog-2.png";
-import blog3 from "../../public/img/blog-3.png";
-import blogMain from "../../public/img/blog-main.png";
-import { PostType } from "../types";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import moment from "moment";
-import { db } from "@/lib/firebase/firebase";
 import { get } from "lodash";
+import { collection, getDocs, query, where } from "firebase/firestore";
+
+import { db } from "@/lib/firebase/firebase";
+import { PostType } from "../types";
+import { NewCardItem } from "./components/NewCardItem";
 
 async function getData(): Promise<PostType[]> {
   const q = query(
-    collection(db, "blog")
-    // where("createdAt", ">=", `${moment().format("MM")}/00/2023`),
-    // where("createdAt", "<=", `${moment().format("MM")}/32/2023`)
+    collection(db, "blog"),
+    where("createdAt", ">=", `${moment().format("YYYY")} ${moment().format("MM")} 00`),
+    where("createdAt", "<=", `${moment().format("YYYY")} ${moment().format("MM")} 32`)
   );
   const results = await getDocs(q);
   return results.docs.map((doc) => {
@@ -24,6 +20,22 @@ async function getData(): Promise<PostType[]> {
       files: doc.data().files,
       description: doc.data().description,
       subtitle: doc.data().subtitle,
+      highlight: doc.data().highlight,
+      id: doc.id,
+    };
+  });
+}
+
+async function getHighlighted(): Promise<PostType[]> {
+  const q = query(collection(db, "blog"), where("highlight", "==", true));
+  const results = await getDocs(q);
+  return results.docs.map((doc) => {
+    return {
+      name: doc.data().name,
+      files: doc.data().files,
+      description: doc.data().description,
+      subtitle: doc.data().subtitle,
+      highlight: doc.data().highlight,
       id: doc.id,
     };
   });
@@ -31,6 +43,7 @@ async function getData(): Promise<PostType[]> {
 
 export default async function Blog() {
   const posts = await getData();
+  const [mainPost] = await getHighlighted();
 
   return (
     <main className="lg:max-w-[1200px] lg:m-auto tracking-wide z-0">
@@ -46,7 +59,7 @@ export default async function Blog() {
           <div className="overflow-hidden h-96 w-full relative">
             <Image
               alt=""
-              src={get(posts[0], "files[0]", "")}
+              src={get(mainPost, "files[0]", "")}
               className="w-full overflow-hidden"
               fill
               style={{ objectFit: "cover" }}
@@ -55,11 +68,11 @@ export default async function Blog() {
           </div>
           <div className="flex justify-between py-6 md:flex-row flex-col gap-4">
             <h1 className="xl:text-6xl font-bold md:text-5xl text-4xl font-Inter md:w-[50%]">
-              {get(posts[0], "name", "")}
+              {get(mainPost, "name", "")}
             </h1>
             <div className="flex gap-6 flex-col items-start justify-between xl:text-lg pr-5 md:w-[50%]">
-              <p>{get(posts[0], "subtitle", "")}</p>
-              <a href={"/blog/" + posts[0].id}>
+              <p>{get(mainPost, "subtitle", "")}</p>
+              <a href={"/blog/" + get(mainPost, "id", "")}>
                 <button className="bg-gray-900 hover:bg-red-500 text-white font-Inter text-xl px-6 py-2 font-light uppercase tracking-widest">
                   Read more
                 </button>
@@ -71,7 +84,7 @@ export default async function Blog() {
           <h3 className="text-2xl font-semibold mb-5 uppercase">Latest posts</h3>
           <div className="divide-y divide-gray-900 border-t border-b border-gray-900 ">
             {posts.map((item, index) => {
-              if (index === 0 || index > 6) return null;
+              if (item.highlight || index > 6) return null;
               return (
                 <a href={"/blog/" + item.id} key={item.id}>
                   <NewCardItem item={item} />

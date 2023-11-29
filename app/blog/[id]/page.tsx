@@ -1,14 +1,21 @@
-import { collection, query, getDocs, where } from "firebase/firestore";
-import { db } from "../../../lib/firebase/firebase";
 import Image from "next/image";
+import { doc, getDoc } from "firebase/firestore";
 import { PostType } from "@/app/types";
+import { TempPost } from "@/app/constants";
+import { db } from "@/lib/firebase/firebase";
 
-async function getData(id: string) {
-  const q = query(collection(db, "blog"), where("id", "==", id));
-  const results = await getDocs(q);
-  return results.docs.map((doc) => {
-    return doc.data();
-  })[0];
+async function getData(id: string): Promise<PostType> {
+  const q = doc(db, `blog`, id);
+  const response = await getDoc(q);
+  const result = response.data() || TempPost;
+  return {
+    id: result.id,
+    name: result.name,
+    description: result.description,
+    subtitle: result.subtitle,
+    highlight: result.highlight,
+    files: result.files || [],
+  };
 }
 
 function createMarkup(val: string) {
@@ -23,7 +30,7 @@ export default async function Cars({ params }: { params: { id: string } }) {
       <div>{blogPost.name}</div>
       <div>{blogPost.subtitle}</div>
       <div dangerouslySetInnerHTML={createMarkup(blogPost.description)}></div>
-      <Image src={blogPost.files[0]} width={300} height={600} alt="" />
+      <Image src={blogPost.files[0]} width={300} height={600} alt="" quality={100} />
     </main>
   );
 }

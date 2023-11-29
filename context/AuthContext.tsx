@@ -6,6 +6,7 @@ import {
   GoogleAuthProvider,
   User,
 } from "firebase/auth";
+
 import { auth } from "@/lib/firebase/firebase";
 
 interface AuthContextType {

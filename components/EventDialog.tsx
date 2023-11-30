@@ -1,10 +1,15 @@
+import dynamic from "next/dynamic";
+
 import { Close } from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
 
 import { EventType } from "@/app/types";
 import { FileDropDown } from "./FileDropDown";
 import { DateInput } from "./DateInput";
-import { TextEditor } from "./TextEditor";
+
+const TextEditor = dynamic(() => import("./TextEditor").then((mod) => mod.TextEditor), {
+  ssr: false,
+});
 
 interface EventDialogProps {
   item: EventType;

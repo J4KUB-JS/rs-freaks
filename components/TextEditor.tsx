@@ -1,12 +1,24 @@
-import { useEffect, useState } from "react";
+"use client";
+
+import { ComponentType, useEffect, useState } from "react";
 import { convertToRaw } from "draft-js";
 import { EditorState, ContentState } from "draft-js";
-// import { Editor } from "react-draft-wysiwyg";
-import dynamic from "next/dynamic";
 
-const Editor = dynamic(() => import("react-draft-wysiwyg").then((mod) => mod.Editor), {
-  ssr: false,
-});
+import dynamic from "next/dynamic";
+// import { EditorProps, } from "react-draft-wysiwyg";
+
+// const Editor = dynamic<EditorProps>(
+//   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
+//   { ssr: false }
+// );
+
+const Editor = dynamic(
+  async () => {
+    const mod = await import("react-draft-wysiwyg");
+    return { default: mod.Editor as unknown as ComponentType };
+  },
+  { ssr: false }
+);
 
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";

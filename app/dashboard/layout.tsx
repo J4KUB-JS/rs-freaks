@@ -10,7 +10,6 @@ import { UserAuth } from "@/context/AuthContext";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-
   const { user, isLoadingUser } = UserAuth();
 
   return (
@@ -67,12 +66,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <div>Loading data</div>
             </div>
           ) : (
-            <>
+            <div>
               Admin page access denied. Go to
               <a href="/" className="font-bold underline pl-1">
                 home page
               </a>
-            </>
+            </div>
           )}
         </div>
       )}

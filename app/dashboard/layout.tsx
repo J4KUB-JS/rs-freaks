@@ -20,7 +20,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <ul className="sticky top-28 menu w-full rounded-xl bg-gray-200">
               <li
                 className={`${
-                  pathname === "/dashboard"
+                  pathname === "/dashboard/events"
                     ? "bg-gray-800 text-gray-50 rounded-lg hover:bg-gray-300 hover:text-gray-800"
                     : ""
                 }`}

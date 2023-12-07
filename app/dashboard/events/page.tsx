@@ -41,6 +41,7 @@ export default function Events() {
       const docRef = await addDoc(collection(db, "events"), {
         name: newItem.name.trim(),
         date: newItem.date,
+        hour: newItem.hour,
         description: newItem.description,
         isMain: newItem.isMain,
         files: [],
@@ -153,7 +154,7 @@ export default function Events() {
                     <td>{item.name}</td>
                     <td>
                       {moment(item.date).format("DD.MM.YYYY")} at{" "}
-                      {moment(item.hour).format("HH:mm")}
+                      {moment(item.date + " " + item.hour).format("HH:mm")}
                     </td>
                     <td>
                       <div className="flex gap-5">

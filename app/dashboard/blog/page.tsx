@@ -98,7 +98,7 @@ export default function Blog() {
             const prevFiles = newItem.files.filter(
               (item: any) => typeof item === "string"
             );
-            console.log([...prevFiles, downloadURL]);
+
             await updateDoc(doc(db, `blog/${newItem.id}`), {
               files: [...prevFiles, downloadURL],
             });

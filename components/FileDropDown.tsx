@@ -28,7 +28,7 @@ export const FileDropDown = ({
   isMulti = false,
 }: FileDropDownProps) => {
   const [files, setFiles] = useState<any[]>([]);
-  console.log(files);
+
   useEffect(() => {
     setFiles(urls);
   }, [urls]);

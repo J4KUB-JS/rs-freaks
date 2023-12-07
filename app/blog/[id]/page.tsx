@@ -22,7 +22,7 @@ function createMarkup(val: string) {
   return { __html: val };
 }
 
-export default async function Cars({ params }: { params: { id: string } }) {
+export default async function BlogPost({ params }: { params: { id: string } }) {
   const blogPost = await getData(params.id);
 
   return (

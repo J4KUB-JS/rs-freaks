@@ -82,7 +82,7 @@ export default async function Blog() {
         </div>
         <div className="px-6">
           <h3 className="text-2xl font-semibold mb-5 uppercase">Latest posts</h3>
-          <div className="divide-y divide-gray-900 border-t border-b border-gray-900 ">
+          <div className="border-t border-gray-900 ">
             {posts.map((item, index) => {
               if (item.highlight || index > 6) return null;
               return (

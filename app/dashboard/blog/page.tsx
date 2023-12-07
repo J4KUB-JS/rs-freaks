@@ -95,8 +95,12 @@ export default function Blog() {
           const imgRef = ref(imageDb, `blogImages/${img.path}`);
           uploadBytes(imgRef, img).then(async () => {
             const downloadURL = await getDownloadURL(imgRef);
+            const prevFiles = newItem.files.filter(
+              (item: any) => typeof item === "string"
+            );
+            console.log([...prevFiles, downloadURL]);
             await updateDoc(doc(db, `blog/${newItem.id}`), {
-              files: arrayUnion(downloadURL),
+              files: [...prevFiles, downloadURL],
             });
           });
         }

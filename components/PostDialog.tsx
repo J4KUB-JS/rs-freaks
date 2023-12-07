@@ -76,6 +76,7 @@ export default function PostDialog({
                 <span className="label-text">Files</span>
               </label>
               <FileDropDown
+                isMulti
                 onChange={(value) => onChange("files", value)}
                 urls={item.files || []}
               />

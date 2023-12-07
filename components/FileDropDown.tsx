@@ -28,7 +28,7 @@ export const FileDropDown = ({
   isMulti = false,
 }: FileDropDownProps) => {
   const [files, setFiles] = useState<any[]>([]);
-
+  console.log(files);
   useEffect(() => {
     setFiles(urls);
   }, [urls]);
@@ -57,7 +57,7 @@ export const FileDropDown = ({
     accept: {
       "image/*": [],
     },
-    maxSize: 1024 * 1000,
+    maxSize: 2000 * 1400,
     onDrop,
   });
 

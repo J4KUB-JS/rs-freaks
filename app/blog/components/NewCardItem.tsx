@@ -7,7 +7,7 @@ interface NewCardItemProps {
 
 export const NewCardItem = ({ item }: NewCardItemProps) => {
   return (
-    <div className="flex gap-5 items-center py-2">
+    <div className="flex gap-5 items-center py-2 border-b border-gray-900">
       <div className=" overflow-hidden h-28 w-28 relative">
         <Image
           alt=""

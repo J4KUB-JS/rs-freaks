@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { get } from "lodash";
 import { doc, getDoc } from "firebase/firestore";
 import { PostType } from "@/app/types";
 import { TempPost } from "@/app/constants";
@@ -26,11 +27,29 @@ export default async function BlogPost({ params }: { params: { id: string } }) {
   const blogPost = await getData(params.id);
 
   return (
-    <main className="drawer drawer-end lg:max-w-[1300px] lg:m-auto z-0">
-      <div>{blogPost.name}</div>
-      <div>{blogPost.subtitle}</div>
-      <div dangerouslySetInnerHTML={createMarkup(blogPost.description)}></div>
-      <Image src={blogPost.files[0]} width={300} height={600} alt="" quality={100} />
+    <main className="lg:max-w-[1300px] lg:m-auto z-0 md:px-10 md:pt-5">
+      <div className="font-bold py-2 uppercase">
+        <a href="/blog">&lt; Go back to blog page</a>
+      </div>
+      <div className="h-[400px] overflow-hidden relative">
+        <Image
+          src={get(blogPost.files, "[1]", get(blogPost.files, "[0]", ""))}
+          alt=""
+          fill
+          style={{ objectFit: "cover" }}
+          quality={100}
+        />
+      </div>
+      <div className="font-bold text-5xl font-Inter uppercase pt-10">{blogPost.name}</div>
+      <div className="font-semibold text-2xl font-Inter uppercase max-w-[500px] pt-2">
+        {blogPost.subtitle}
+      </div>
+      <div className="flex justify-center">
+        <div
+          className="font-Lato pt-10 max-w-[700px]"
+          dangerouslySetInnerHTML={createMarkup(blogPost.description)}
+        ></div>
+      </div>
     </main>
   );
 }

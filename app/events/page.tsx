@@ -31,7 +31,7 @@ async function getData(): Promise<Events[]> {
 export default async function Events() {
   const thisMonthEvents = await getData();
   return (
-    <main className="drawer drawer-end lg:max-w-[1300px] lg:m-auto z-0">
+    <main className="lg:max-w-[1300px] lg:m-auto z-0">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-10 lg:gap-x-32 px-10 lg:px-16 mt-10">
         <div className="col-span-2 lg:col-span-1">
           <div>

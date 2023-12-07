@@ -1,4 +1,5 @@
 import React, { useContext, createContext, useState, useEffect, ReactNode } from "react";
+import { useRouter } from "next/navigation";
 import {
   signInWithPopup,
   signOut,
@@ -24,12 +25,16 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
+  const router = useRouter();
+
   const [user, setUser] = useState<User | null>(null);
   const [isLoadingUser, setIsLoadingUser] = useState<boolean>(true);
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider);
+    signInWithPopup(auth, provider).then(() => {
+      router.push("/dashboard/events");
+    });
   };
 
   const logOut = () => {

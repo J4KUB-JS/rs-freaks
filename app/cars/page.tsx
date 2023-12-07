@@ -15,7 +15,7 @@ export default async function Cars() {
   const imageUrls = await getData();
 
   return (
-    <main className="drawer drawer-end lg:max-w-[1300px] lg:m-auto z-0">
+    <main className="lg:max-w-[1300px] lg:m-auto z-0">
       <div className="grid grid-cols-5">
         <div className="p-16 col-span-5 md:col-span-5 lg:col-span-2 relative h-full mt-14">
           <div className="lg:sticky top-32">

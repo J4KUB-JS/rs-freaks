@@ -15,13 +15,6 @@ export const Navigation = () => {
   const pathname = usePathname();
   const { user, googleSignIn, logOut } = UserAuth();
 
-  const handleSignIn = async () => {
-    try {
-      await googleSignIn();
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const handleSignOut = async () => {
     try {
       await logOut();
@@ -32,7 +25,7 @@ export const Navigation = () => {
 
   return (
     <>
-      <div className="drawer drawer-end lg:max-w-[1300px] lg:m-auto z-10 sticky top-0 bg-gray-50">
+      <div className="lg:max-w-[1300px] lg:m-auto z-10 sticky top-0 bg-gray-50">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex justify-between items-center px-8 py-6 ">
           <div className="flex items-center gap-10">
@@ -74,12 +67,11 @@ export const Navigation = () => {
           </div>
           <div>
             {!user && (
-              <button
-                className="font-Inter hidden md:block border-4 border-gray-950 px-2 uppercase font-bold text-xl"
-                onClick={handleSignIn}
-              >
-                Join Club!
-              </button>
+              <a href="/signin">
+                <button className="font-Inter hidden md:block border-4 border-gray-950 px-2 uppercase font-bold text-xl">
+                  Join Club!
+                </button>
+              </a>
             )}
 
             {user && (
@@ -171,12 +163,11 @@ export const Navigation = () => {
                   </ul>
                 </div>
               ) : (
-                <button
-                  className="font-Inter border-4 border-gray-950 px-2 uppercase font-bold text-xl"
-                  onClick={handleSignIn}
-                >
-                  Join Club!
-                </button>
+                <a href="/signin">
+                  <button className="font-Inter border-4 border-gray-950 px-2 uppercase font-bold text-xl">
+                    Join Club!
+                  </button>
+                </a>
               )}
             </div>
             <li className="">

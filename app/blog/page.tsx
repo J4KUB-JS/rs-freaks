@@ -10,8 +10,8 @@ import { NewCardItem } from "./components/NewCardItem";
 async function getData(): Promise<PostType[]> {
   const q = query(
     collection(db, "blog"),
-    where("createdAt", ">=", `${moment().format("YYYY")} ${moment().format("MM")} 00`),
-    where("createdAt", "<=", `${moment().format("YYYY")} ${moment().format("MM")} 32`)
+    where("createdAt", ">=", `${moment().format("YYYY")} ${moment().format("MM")} 01`),
+    where("createdAt", "<=", `${moment().format("YYYY")} ${moment().format("MM")} 31`)
   );
   const results = await getDocs(q);
   return results.docs.map((doc) => {

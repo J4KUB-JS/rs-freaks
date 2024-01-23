@@ -22,6 +22,10 @@ async function getData(id: string): Promise<EventType> {
   };
 }
 
+function createMarkup(val: string) {
+  return { __html: val };
+}
+
 export default async function Blog({ params }: { params: { id: string } }) {
   const data = await getData(params.id);
   return (
@@ -37,7 +41,7 @@ export default async function Blog({ params }: { params: { id: string } }) {
           {data.name}
         </div>
       </div>
-      <div>{data.description}</div>
+      <div dangerouslySetInnerHTML={createMarkup(data.description)}></div>
       <div className=" mt-10">
         {data.files.map((img: any, index: number) => {
           return (

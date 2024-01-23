@@ -21,6 +21,10 @@ async function getData(id: string): Promise<PostType> {
   };
 }
 
+function createMarkup(val: string) {
+  return { __html: val };
+}
+
 export default async function Blog({ params }: { params: { id: string } }) {
   const data = await getData(params.id);
   return (
@@ -36,6 +40,7 @@ export default async function Blog({ params }: { params: { id: string } }) {
           {data.name}
         </div>
       </div>
+      <div dangerouslySetInnerHTML={createMarkup(data.description)}></div>
       <div>{data.description}</div>
       <div>{data.subtitle}</div>
       <div className=" mt-10">
